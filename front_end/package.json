@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "sass": "^1.62.1"
+  },
+  "scripts": {
+    "sass": "sass --watch public/styles/scss/views/index.scss:./public/styles/index.css -w"
+  }
+}
