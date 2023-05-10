@@ -5,7 +5,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2.625em;
+  padding: 0 2.625em 0 2.625em;
+  margin-bottom: 7.0625em;
 }
 
 .brandingWrapper__imgContainer {
@@ -21,4 +22,70 @@ header {
   font-size: 2.25em;
   font-weight: 400;
   color: $titleFontColors;
+  cursor: default;
+}
+
+// ********** MAIN **********
+
+.photographersContainer {
+  min-height: 60vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+}
+
+.photographersGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.photographer {
+  width: 350px;
+  height: 200px;
+  display: flex;
+  flex-flow: column;
+  gap: 0.3em;
+  p, blockquote {
+    cursor: default;
+  }
+}
+
+.photographer__link {
+  text-decoration: none;
+}
+
+.photographer__link__card__img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.photographer__link__card__caption {
+}
+
+.photographer__link__card__caption__name {
+  font-weight: 400;
+  font-size: 2.25em;
+  color: $subtitleFontColors;
+}
+
+.photographer__city {
+  font-weight: 400;
+  font-size: 0.8125em;
+  color: $subtitleFontColors;
+}
+
+.photographer__tagline {
+  font-weight: 400;
+  font-size: 0.625em;
+  color: $textFontColors;
+}
+
+.photographer__price {
+  font-weight: 400;
+  font-size: 0.5625em;
+  color: $subTextFontColors;
 }
