@@ -1,35 +1,54 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, user-scalable=no"
-  />
-  <meta charset="UTF-8" />
-  <title>Fisheye</title>
-  <link rel="stylesheet" href="./public/styles/css/index.css" />
-</head>
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <meta charset="UTF-8" />
+    <title>Fisheye</title>
+    <link rel="icon" type="image/x-icon" href="./public/assets/favicon.png" />
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/styles/css/views/index.css" />
+  </head>
 
-<body>
+  <body>
+    <header>
+      <div class="brandingWrapper">
+        <figure class="brandingWrapper__imgContainer">
+          <img
+            class="brandingWrapper__imgContainer__img"
+            src="./public/assets/logo.png"
+            alt="Fisheye branding logo"
+          />
+        </figure>
+      </div>
+      <div class="titleWrapper">
+        <h1 class='titleWrapper__title'>Nos photographes</h1>
+      </div>
+    </header>
 
-<header></header>
-<main></main>
-<footer></footer>
 
-<!-- API CALLS -->
-<script src="./scripts/controllers/ApiCalls.js"></script>
+    <main>
+      
+    </main>
 
-<!-- MODELS -->
-<script src='./scripts/models/media.js'></script>
-<script src="./scripts/models/Photographers.js"></script>
 
-<!-- SERVICES -->
-<script src="./scripts/services/MediaService.js"></script>
-<script src="./scripts/services/PhotographersService.js"></script>
+    <footer></footer>
 
-<!-- CONTROLLERS -->
-<script src='./scripts/controllers/ApiLocalStorage.js'></script>
-<script src="./scripts/controllers/Index.js"></script>
+    <!-- API CALLS -->
+    <script src="./scripts/controllers/ApiCalls.js"></script>
 
-</body>
+    <!-- MODELS -->
+    <script src="./scripts/models/media.js"></script>
+    <script src="./scripts/models/Photographers.js"></script>
+
+    <!-- SERVICES -->
+    <script src="./scripts/services/MediaService.js"></script>
+    <script src="./scripts/services/PhotographersService.js"></script>
+
+    <!-- CONTROLLERS -->
+    <script src="./scripts/controllers/ApiLocalStorage.js"></script>
+    <script src="./scripts/controllers/Index.js"></script>
+  </body>
 </html>

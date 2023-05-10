@@ -1,2 +1,24 @@
 @import '../utils/globalStyles.scss';
+@import '../utils/variables.scss';
 
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.625em;
+}
+
+.brandingWrapper__imgContainer {
+  width: 200px;
+}
+
+.brandingWrapper__imgContainer__img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.titleWrapper__title {
+  font-size: 2.25em;
+  font-weight: 400;
+  color: $titleFontColors;
+}

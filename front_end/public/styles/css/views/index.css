@@ -1,0 +1,33 @@
+html,
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "DM-sans", sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.625em;
+}
+
+.brandingWrapper__imgContainer {
+  width: 200px;
+}
+
+.brandingWrapper__imgContainer__img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.titleWrapper__title {
+  font-size: 2.25em;
+  font-weight: 400;
+  color: #901C1C;
+}
+
+/*# sourceMappingURL=index.css.map */
