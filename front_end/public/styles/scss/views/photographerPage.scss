@@ -13,7 +13,7 @@
 // ***** BANNER *****
 
 .photographersBanner {
-  @media(max-width: $breakpointTablet) {
+  @media (max-width: $breakpointTablet) {
     font-size: 18px;
     padding: 1em;
   }
@@ -42,7 +42,7 @@
 }
 
 .photographerBanner__overviewWrapper__name {
-  @media(max-width: $breakpointTablet) {
+  @media (max-width: $breakpointTablet) {
     font-size: 32px;
   }
   color: $subtitleFontColors;
@@ -72,16 +72,15 @@
 }
 
 .photographerBanner__contactWrapper__contactBtn {
-  @media(max-width: $breakpointTablet) {
+  @media (max-width: $breakpointTablet) {
     font-size: 18px;
-    padding: .5em;
+    padding: 0.5em;
     white-space: nowrap;
   }
 
   @media (max-width: $breakpointMobile) {
     font-size: 16px;
   }
-
   border: none;
   background: $titleFontColors;
   color: $altTextFontColors;
@@ -127,7 +126,108 @@
   height: 350px;
 }
 
-// ***** WORKS *****
+// ***** WORK *****
 
 .photographerWork {
+  margin-top: 2em;
+}
+
+// ***** FILTERS *****
+
+.photographerWork__filtersWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1em;
+}
+
+.photographerWork__filtersWrapper__message {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.photographerWork__filtersWrapper__ButtonWrapper {
+  position: relative;
+}
+
+.photographerWork__filtersWrapper__ButtonWrapper__button {
+  @media (max-width: $breakpointTablet) {
+    font-size: 18px;
+    padding: 0.5em;
+    white-space: nowrap;
+  }
+
+  @media (max-width: $breakpointMobile) {
+    font-size: 16px;
+  }
+  border: none;
+  background: $titleFontColors;
+  color: $altTextFontColors;
+  padding: 1em;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+.photographerWork__filtersWrapper__ButtonWrapper__elementWrapper {
+  display: none;
+  width: 174px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: $titleFontColors;
+  border-radius: 4px;
+}
+
+.photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters {
+  @media (max-width: $breakpointTablet) {
+    font-size: 18px;
+    padding: 0.5em;
+    white-space: nowrap;
+  }
+
+  @media (max-width: $breakpointMobile) {
+    font-size: 16px;
+  }
+  list-style: none;
+  border: none;
+  color: $altTextFontColors;
+  padding: 1em;
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  position: relative;
+}
+
+.middleFilter {
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 80%;
+    height: 1px;
+    background: $altTextFontColors;
+    transform: translateX(-50%);
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 80%;
+    height: 1px;
+    background: $altTextFontColors;
+    transform: translateX(-50%);
+  }
 }

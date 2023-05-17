@@ -178,4 +178,110 @@ header {
   height: 350px;
 }
 
+.photographerWork {
+  margin-top: 2em;
+}
+
+.photographerWork__filtersWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1em;
+}
+
+.photographerWork__filtersWrapper__message {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.photographerWork__filtersWrapper__ButtonWrapper {
+  position: relative;
+}
+
+.photographerWork__filtersWrapper__ButtonWrapper__button {
+  border: none;
+  background: #901C1C;
+  color: #FFFFFF;
+  padding: 1em;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+@media (max-width: 1024px) {
+  .photographerWork__filtersWrapper__ButtonWrapper__button {
+    font-size: 18px;
+    padding: 0.5em;
+    white-space: nowrap;
+  }
+}
+@media (max-width: 768px) {
+  .photographerWork__filtersWrapper__ButtonWrapper__button {
+    font-size: 16px;
+  }
+}
+
+.photographerWork__filtersWrapper__ButtonWrapper__elementWrapper {
+  display: none;
+  width: 174px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: #901C1C;
+  border-radius: 4px;
+}
+
+.photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters {
+  list-style: none;
+  border: none;
+  color: #FFFFFF;
+  padding: 1em;
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  position: relative;
+}
+@media (max-width: 1024px) {
+  .photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters {
+    font-size: 18px;
+    padding: 0.5em;
+    white-space: nowrap;
+  }
+}
+@media (max-width: 768px) {
+  .photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters {
+    font-size: 16px;
+  }
+}
+
+.middleFilter:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 80%;
+  height: 1px;
+  background: #FFFFFF;
+  transform: translateX(-50%);
+}
+.middleFilter:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 80%;
+  height: 1px;
+  background: #FFFFFF;
+  transform: translateX(-50%);
+}
+
 /*# sourceMappingURL=photographerPage.css.map */
