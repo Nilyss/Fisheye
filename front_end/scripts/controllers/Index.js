@@ -46,7 +46,7 @@ class Index {
 
             groupContainer.innerHTML += `
               <div class="photographer">
-                <a class='photographer__link' href="photographer.html?id=${photographer.id}">
+                <a class='photographer__link' href="./views/photographerPage.html?id=${photographer.id}">
                 <figure class='photographer__link__imgWrapper'>
                 <img
                     class="photographer__link__imgWrapper__img ${additionalClass}"

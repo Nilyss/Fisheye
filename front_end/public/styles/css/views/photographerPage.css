@@ -1,0 +1,181 @@
+html,
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "DM-sans", sans-serif;
+}
+
+body {
+  padding: 2.625em;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.625em 0 2.625em;
+  margin-bottom: 7.0625em;
+}
+@media (max-width: 768px) {
+  header {
+    flex-flow: column;
+    gap: 2em;
+    text-align: center;
+    margin-bottom: 4em;
+  }
+}
+
+.brandingWrapper__imgContainer {
+  width: 200px;
+}
+
+.brandingWrapper__imgContainer__img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.titleWrapper__title {
+  font-size: 2.25em;
+  font-weight: 400;
+  color: #901C1C;
+  cursor: default;
+}
+
+.main {
+  padding: 0 2.625em 0 2.625em;
+}
+@media (max-width: 768px) {
+  .main {
+    padding: unset;
+  }
+}
+
+.photographersBanner {
+  margin-top: -4em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3em;
+  background: #FAFAFA;
+  cursor: default;
+}
+@media (max-width: 1024px) {
+  .photographersBanner {
+    font-size: 18px;
+    padding: 1em;
+  }
+}
+@media (max-width: 768px) {
+  .photographersBanner {
+    margin-top: -2em;
+    flex-flow: column;
+    gap: 2em;
+    margin-bottom: 4em;
+    text-align: center;
+    padding: 1em;
+  }
+}
+
+.photographerBanner__overviewWrapper {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+  text-align: center;
+}
+
+.photographerBanner__overviewWrapper__name {
+  color: #D3573C;
+  font-weight: 400;
+  font-size: 64px;
+}
+@media (max-width: 1024px) {
+  .photographerBanner__overviewWrapper__name {
+    font-size: 32px;
+  }
+}
+
+.photographerBanner__overviewWrapper__location {
+  color: #901C1C;
+  font-weight: 400;
+  font-size: 24px;
+}
+@media (max-width: 1024px) {
+  .photographerBanner__overviewWrapper__location {
+    font-size: 18px;
+  }
+}
+
+.photographerBanner__overviewWrapper__tagline {
+  color: #757575;
+  font-weight: 400;
+  font-size: 18px;
+}
+@media (max-width: 1024px) {
+  .photographerBanner__overviewWrapper__tagline {
+    font-size: 16px;
+  }
+}
+
+.photographerBanner__contactWrapper__contactBtn {
+  border: none;
+  background: #901C1C;
+  color: #FFFFFF;
+  padding: 1em;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+}
+@media (max-width: 1024px) {
+  .photographerBanner__contactWrapper__contactBtn {
+    font-size: 18px;
+    padding: 0.5em;
+    white-space: nowrap;
+  }
+}
+@media (max-width: 768px) {
+  .photographerBanner__contactWrapper__contactBtn {
+    font-size: 16px;
+  }
+}
+
+.photographerBanner__pictureWrapper {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0 13px 27px -5px, rgba(0, 0, 0, 0.3) 0 8px 16px -8px;
+}
+@media (max-width: 768px) {
+  .photographerBanner__pictureWrapper {
+    width: 150px;
+    height: 150px;
+    order: -1;
+  }
+}
+
+.photographerBanner__pictureWrapper__picture {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.firstPhotographer {
+  margin-top: 2em;
+  width: auto;
+  height: 400px;
+}
+
+.portraitPicture {
+  margin-top: 4em;
+  width: auto;
+  height: 350px;
+}
+
+/*# sourceMappingURL=photographerPage.css.map */
