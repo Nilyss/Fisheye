@@ -1,7 +1,14 @@
 @import '../utils/globalStyles.scss';
 @import '../utils/variables.scss';
+@import '../utils/mixins.scss';
 
 header {
+  @media (max-width: $breakpointMobile) {
+    flex-flow: column;
+    gap: 2em;
+    text-align: center;
+    margin-bottom: 4em;
+  }
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -35,6 +42,12 @@ header {
 }
 
 .photographersGroup {
+  @media (max-width: $breakpointMobile) {
+    flex-flow: column;
+    align-items: center;
+    gap: 4em;
+    margin-bottom: 4em;
+  }
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,26 +60,60 @@ header {
   display: flex;
   flex-flow: column;
   gap: 0.3em;
-  p, blockquote {
+  p,
+  blockquote {
     cursor: default;
   }
 }
 
 .photographer__link {
   text-decoration: none;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.photographer__link__card__img {
+.photographer__link__imgWrapper {
+  @media (max-width: $breakpointMobile) {
+    width: 150px;
+    height: 150px;
+  }
   width: 200px;
   height: 200px;
-  object-fit: cover;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0 8px 16px -8px;
 }
 
-.photographer__link__card__caption {
+.photographer__link__imgWrapper__img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
-.photographer__link__card__caption__name {
+.firstPhotographer {
+  margin-top: 2em;
+  width: auto;
+  height: 400px;
+}
+
+.portraitPicture {
+  margin-top: 4em;
+  width: auto;
+  height: 350px;
+}
+
+.photographer__link__nameWrapper__name {
+  @media (max-width: $breakpointMobile) {
+    margin-top: 0.5em;
+    font-size: 1.25em;
+  }
+  white-space: nowrap;
   font-weight: 400;
   font-size: 2.25em;
   color: $subtitleFontColors;
