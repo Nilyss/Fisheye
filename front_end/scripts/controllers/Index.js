@@ -1,14 +1,16 @@
 class Index {
   constructor() {
-    this.isPhotographerDisplayed = false;
+    this.utils = new Utils();
   }
 
   async initApp() {
-    const displayPhotographers = async () => {
-      if (!this.isPhotographerDisplayed) {
-        // Get the photographers from the localStorage
-        const photographers = JSON.parse(localStorage.getItem('photographers'));
+    const apiSessionStorage = new ApiSessionStorage();
+    await apiSessionStorage.initApp();
+    const photographers = this.utils.getDataFromSessionStorage('photographers');
 
+
+    const displayPhotographers = async () => {
+      if (!this.isPhotographerDisplayed && photographers) {
         // Get the DOM element where the photographers will be displayed
         const photographersContainer = document.querySelector(
           '.photographersContainer'

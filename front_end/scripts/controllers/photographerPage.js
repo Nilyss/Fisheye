@@ -1,47 +1,55 @@
 class PhotographerPage {
   constructor() {
-    this.arrowUp = '../public/assets/icons/arrowUp.svg';
-    this.photographersBanner = document.querySelector('.photographersBanner');
-    this.photographers = JSON.parse(localStorage.getItem('photographers'));
-    this.urlParams = new URLSearchParams(window.location.search);
-    this.photographerId = this.urlParams.get('id');
-    this.photographer = this.photographers.find(
-      (photographer) => photographer.id === parseInt(this.photographerId)
-    );
+    this.utils = new Utils();
+    this.photographers = this.utils.getDataFromSessionStorage('photographers');
+    this.medias = this.utils.getDataFromSessionStorage('medias');
     this.isPhotographerBannerDisplayed = false;
-    this.photographerWork = document.querySelector('.photographerWork');
-    this.medias = JSON.parse(localStorage.getItem('medias'));
-    this.isPhotographerWorkDisplayed = false;
     this.isFilterDisplayed = false;
+    this.isPhotographerWorkDisplayed = false;
   }
 
   async initApp() {
-    // Redirect to index.html if the photographer doesn't exist, or if the id is not provided in localStorage
-    if (!this.photographer) {
-      window.location.href = '../index.html';
+    // Check if datas are already in sessionStorage. If not, fetch them from the API and store them
+    if (!this.photographers && !this.medias) {
+      const apiSessionStorage = new ApiSessionStorage();
+      await apiSessionStorage.initApp();
+
+      this.photographers =
+        this.utils.getDataFromSessionStorage('photographers');
+      this.medias = this.utils.getDataFromSessionStorage('medias');
     }
+
+    const photographersBanner = document.querySelector('.photographersBanner');
+    const urlParams = new URLSearchParams(window.location.search);
+    const photographerId = urlParams.get('id');
+    const photographer = this.photographers.find(
+      (photographer) => photographer.id === parseInt(photographerId)
+    );
+    const photographerWork = document.querySelector('.photographerWork');
+
+    const arrowUp = '../public/assets/icons/arrowUp.svg';
 
     // Display photographer banner
     const displayPhotographerBanner = async () => {
       // Adding specific class for some photographers profile picture
       let additionalClass = '';
-      if (this.photographer.id === 243) {
+      if (photographer.id === 243) {
         additionalClass = 'firstPhotographer';
       }
       if (
-        this.photographer.id === 930 ||
-        this.photographer.id === 925 ||
-        this.photographer.id === 195
+        photographer.id === 930 ||
+        photographer.id === 925 ||
+        photographer.id === 195
       ) {
         additionalClass = 'portraitPicture';
       }
 
       if (!this.isPhotographerBannerDisplayed) {
-        this.photographersBanner.innerHTML += `
+        photographersBanner.innerHTML += `
         <div class="photographerBanner__overviewWrapper">
-          <h1 class="photographerBanner__overviewWrapper__name">${this.photographer.name}</h1>
-          <p class="photographerBanner__overviewWrapper__location">${this.photographer.city}, ${this.photographer.country}</p>
-          <p class="photographerBanner__overviewWrapper__tagline">${this.photographer.tagline}</p>
+          <h1 class="photographerBanner__overviewWrapper__name">${photographer.name}</h1>
+          <p class="photographerBanner__overviewWrapper__location">${photographer.city}, ${photographer.country}</p>
+          <p class="photographerBanner__overviewWrapper__tagline">${photographer.tagline}</p>
         </div>
         <div class="photographerBanner__contactWrapper">
           <button class="photographerBanner__contactWrapper__contactBtn">Contactez-moi</button>
@@ -49,7 +57,7 @@ class PhotographerPage {
         <figure class="photographerBanner__pictureWrapper">
           <img
             class="photographerBanner__pictureWrapper__picture ${additionalClass}"
-            src="../public/assets/usersPictures/${this.photographer.portrait}"
+            src="../public/assets/usersPictures/${photographer.portrait}"
             alt=""
           />
         </figure>
@@ -63,16 +71,16 @@ class PhotographerPage {
     const displayFilterButton = async () => {
       let buttonName = 'Popularité';
       if (!this.isFilterDisplayed) {
-        this.photographerWork.innerHTML += `
+        photographerWork.innerHTML += `
         <div class="photographerWork__filtersWrapper">
           <p class='photographerWork__filtersWrapper__message'>Trier par</p>
           <div class='photographerWork__filtersWrapper__ButtonWrapper'>        
             <button class='photographerWork__filtersWrapper__ButtonWrapper__button'>${buttonName}
-              <img src="${this.arrowUp}" alt="fleche haut" />
+              <img src="${arrowUp}" alt="fleche haut" />
             </button>
             <ul class="photographerWork__filtersWrapper__ButtonWrapper__elementWrapper">
               <li class="photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters">Popularité               
-                <img src="${this.arrowUp}" alt="fleche haut" />
+                <img src="${arrowUp}" alt="fleche haut" />
               </li>
               <li class="photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters middleFilter">Date</li>
               <li class="photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters">Titre</li>   
