@@ -2,9 +2,11 @@ class Index {
   constructor() {
     this.photographersService = new PhotographersService();
     this.isPhotographerDisplayed = false;
+    this.photographerFactory = PhotographerFactory;
   }
 
   async initApp() {
+
     // Get photographers from API
     const photographers = await this.photographersService.getPhotographers();
 
@@ -22,7 +24,7 @@ class Index {
         }
 
         photographerGroups.forEach((group, groupIndex) => {
-          let groupContainer = document.createElement('div');
+          const groupContainer = document.createElement('div');
           groupContainer.className = `photographersGroup group${
             groupIndex + 1
           }`;
@@ -45,26 +47,15 @@ class Index {
                 break;
             }
 
-            groupContainer.innerHTML += `
-              <div class="photographer">
-                <a class='photographer__link' href="./views/photographerPage.html?id=${photographer.id}">
-                <figure class='photographer__link__imgWrapper'>
-                <img
-                    class="photographer__link__imgWrapper__img ${additionalClass}"
-                    src="./public/assets/usersPictures/${photographer.portrait}"
-                    alt=""
-                  />
-                </figure>
-                <div class='photographer__link__nameWrapper'>
-                  <h2 class='photographer__link__nameWrapper__name'>${photographer.name}</h2>
-                </div>
-                </a>
-                <p class='photographer__city'>${photographer.city}, ${photographer.country}</p>
-                <blockquote class='photographer__tagline'>${photographer.tagline}</blockquote>
-                <p class='photographer__price'>${photographer.price}€/jour</p>
-              </div>
-            `;
+            // Create photographer DOM element with the factory
+            const photographerElement =
+              this.photographerFactory.createPhotographerElement(
+                photographer,
+                additionalClass
+              );
+            groupContainer.appendChild(photographerElement);
           });
+
           photographersContainer.appendChild(groupContainer);
         });
         this.isPhotographerDisplayed = true;
