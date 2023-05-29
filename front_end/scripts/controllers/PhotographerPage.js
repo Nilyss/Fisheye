@@ -1,8 +1,8 @@
 class PhotographerPage {
   constructor() {
-    this.utils = new Utils();
-    this.photographers = this.utils.getDataFromSessionStorage('photographers');
-    this.medias = this.utils.getDataFromSessionStorage('medias');
+    this.photographersService = new PhotographersService();
+    this.mediaService = new MediaService();
+
     this.isPhotographerBannerDisplayed = false;
     this.isFilterDisplayed = false;
     this.isPhotographerWorkDisplayed = false;
@@ -10,20 +10,16 @@ class PhotographerPage {
   }
 
   async initApp() {
-    // Check if datas are already in sessionStorage. If not, fetch them from the API and store them
-    if (!this.photographers && !this.medias) {
-      const apiSessionStorage = new ApiSessionStorage();
-      await apiSessionStorage.initApp();
+    // Get photographers from API
+    const photographers = await this.photographersService.getPhotographers();
+    // Get medias from API
+    const medias = await this.mediaService.getMedia();
 
-      this.photographers =
-        this.utils.getDataFromSessionStorage('photographers');
-      this.medias = this.utils.getDataFromSessionStorage('medias');
-    }
     // variables
     const photographersBanner = document.querySelector('.photographersBanner');
     const urlParams = new URLSearchParams(window.location.search);
     const photographerId = urlParams.get('id');
-    const photographer = this.photographers.find(
+    const photographer = photographers.find(
       (photographer) => photographer.id === parseInt(photographerId)
     );
     const photographerWork = document.querySelector('.photographerWork');
@@ -98,63 +94,61 @@ class PhotographerPage {
       this.isFilterDisplayed = true;
     };
 
-    const displayPhotographerWork = () => {
-      // Get all pictures and videos from photographer
-      const pictures = this.medias.images;
-      const videos = this.medias.videos;
-
-      const photographerPictures = pictures
-        .filter(
-          (picture) => picture.photographerId === parseInt(photographerId)
-        )
-        .sort((a, b) => b.likes - a.likes);
-
-      console.log(photographerPictures);
-
-      const photographerVideos = videos.filter(
-        (video) => video.photographerId === parseInt(photographerId)
-      );
-
+    const displayPhotographerWork = async () => {
       // Display photographer work
       if (!this.isPhotographerWorkDisplayed) {
         photographerWork.innerHTML += `
-        <article class='photographerWork__mediaWrapper'></article>
-        `;
+          <article class='photographerWork__mediaWrapper'></article>
+    `;
         const mediaWrapper = document.querySelector(
           '.photographerWork__mediaWrapper'
         );
 
-        photographerPictures.forEach((picture) => {
+        const allMedias = [...medias.images, ...medias.videos];
+        const filteredMedias = allMedias.filter(
+          (media) => media.photographerId === photographer.id
+        );
+
+        filteredMedias.forEach((media) => {
+          const mediaType = media.image ? 'image' : 'video';
+          const mediaTag =
+            mediaType === 'image'
+              ? `<img
+                   class='photographerWork__mediaWrapper__container__media'
+                   src='../public/assets/usersMedias/${photographer.name}/${media[mediaType]}'
+                   alt=''
+                />`
+              : `<video
+                  class='photographerWork__mediaWrapper__container__media'
+                >
+                  <source src='../public/assets/usersMedias/${photographer.name}/${media[mediaType]}' type='video/mp4' />
+                </video>`;
+
           mediaWrapper.innerHTML += `
-          <figure class="photographerWork__mediaWrapper__container">
-            <img
-              class="photographerWork__mediaWrapper__container__media"
-              src="../public/assets/usersMedias/${photographer.name}/${picture.image}"
-              alt=""
-            />
-            <figcaption class="photographerWork__mediaWrapper__container__description">
-              <p class="photographerWork__mediaWrapper__container__description__title">${picture.title}</p>
-              <div class='photographerWork__mediaWrapper__container__description__likeWrapper'>
-                <p class="photographerWork__mediaWrapper__container__description__likeWrapper__like">${picture.likes}</p>
-                <p class="photographerWork__mediaWrapper__container__description__likeWrapper__icon">
-                  <span class="material-symbols-outlined" aria-label='likes' >favorite</span>
-                </p>
-              </div>              
-            </figcaption>
-          </figure>
+            <figure class='photographerWork__mediaWrapper__container'>
+              ${mediaTag}
+              <figcaption class='photographerWork__mediaWrapper__container__description'>
+                <p class='photographerWork__mediaWrapper__container__description__title'>${media.title}</p>
+                <div class='photographerWork__mediaWrapper__container__description__likeWrapper'>
+                  <p class='photographerWork__mediaWrapper__container__description__likeWrapper__like'>${media.likes}</p>
+                  <p class='photographerWork__mediaWrapper__container__description__likeWrapper__icon'>
+                    <span class='material-symbols-outlined' aria-label='likes' >favorite</span>
+                  </p>
+                </div>              
+              </figcaption>
+            </figure>
           `;
         });
-
         this.isPhotographerWorkDisplayed = true;
       }
     };
 
     const displayPhotographerTJM = () => {
-      const totalImagesLikes = this.medias.images.reduce(
+      const totalImagesLikes = medias.images.reduce(
         (acc, image) => acc + image.likes,
         0
       );
-      const totalVideosLikes = this.medias.videos.reduce(
+      const totalVideosLikes = medias.videos.reduce(
         (acc, video) => acc + video.likes,
         0
       );

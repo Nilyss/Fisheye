@@ -1,14 +1,12 @@
 class Index {
   constructor() {
-    this.utils = new Utils();
+    this.photographersService = new PhotographersService();
+    this.isPhotographerDisplayed = false;
   }
 
   async initApp() {
-    const apiSessionStorage = new ApiSessionStorage();
-    await apiSessionStorage.initApp();
-    const photographers = this.utils.getDataFromSessionStorage('photographers');
-
-
+    // Get photographers from API
+    const photographers = await this.photographersService.getPhotographers();
 
     const displayPhotographers = async () => {
       if (!this.isPhotographerDisplayed && photographers) {
@@ -30,7 +28,6 @@ class Index {
           }`;
 
           group.forEach((photographer, photographerIndex) => {
-            console.log(photographer.name)
             // Adding specific class for some photographers
             let additionalClass = '';
             switch (groupIndex) {
