@@ -16,7 +16,7 @@ class PhotographerPage {
     this.photographer = photographers.find(
       (photographer) => photographer.id === parseInt(photographerId)
     );
-    this.medias = await this.mediaService.getMedia();
+    this.medias = await this.mediaService.getMedia(parseInt(photographerId));
   }
 
   displayPhotographerBanner() {
@@ -79,53 +79,15 @@ class PhotographerPage {
   }
 
   displayPhotographerWork() {
-    // Display photographer work
-    this.photographerWork.innerHTML += `
-      <article class='photographerWork__mediaWrapper'></article>
-  `;
-    const mediaWrapper = document.querySelector(
-      '.photographerWork__mediaWrapper'
-    );
+    const mediaWrapper = document.createElement('div');
+    mediaWrapper.classList.add('photographerWork__mediaWrapper');
+    this.photographerWork.appendChild(mediaWrapper);
 
     const allMedias = [...this.medias.images, ...this.medias.videos];
-    const filteredMedias = allMedias.filter(
-      (media) => media.photographerId === this.photographer.id
-    );
-
-    let html = '';
-
-    filteredMedias.forEach((media) => {
-      const mediaType = media.image ? 'image' : 'video';
-      const mediaTag =
-        mediaType === 'image'
-          ? `<img
-              class='photographerWork__mediaWrapper__container__media'
-              src='../public/assets/usersMedias/${this.photographer.name}/${media[mediaType]}'
-              alt=''
-           />`
-          : `<video
-             class='photographerWork__mediaWrapper__container__media'
-           >
-             <source src='../public/assets/usersMedias/${this.photographer.name}/${media[mediaType]}' type='video/mp4' />
-           </video>`;
-
-      html += `
-      <figure class='photographerWork__mediaWrapper__container'>
-        ${mediaTag}
-        <figcaption class='photographerWork__mediaWrapper__container__description'>
-          <p class='photographerWork__mediaWrapper__container__description__title'>${media.title}</p>
-          <div class='photographerWork__mediaWrapper__container__description__likeWrapper'>
-            <p class='photographerWork__mediaWrapper__container__description__likeWrapper__like'>${media.likes}</p>
-            <p class='photographerWork__mediaWrapper__container__description__likeWrapper__icon'>
-              <span class='material-symbols-outlined' aria-label='likes' >favorite</span>
-            </p>
-          </div>              
-        </figcaption>
-      </figure>
-    `;
+    allMedias.forEach((media) => {
+      const mediaElement = MediaFactory.createMediaElement(media);
+      mediaWrapper.appendChild(mediaElement);
     });
-
-    mediaWrapper.innerHTML = html;
   }
 
   displayPhotographerDailyPrice() {
