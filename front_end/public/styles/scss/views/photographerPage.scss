@@ -8,6 +8,7 @@
     padding: unset;
   }
   padding: 0 2.625em 0 2.625em;
+  position: relative;
 }
 
 // ***** BANNER *****
@@ -68,16 +69,12 @@
   font-size: 18px;
 }
 
-.photographerBanner__contactWrapper {
-}
-
 .photographerBanner__contactWrapper__contactBtn {
   @media (max-width: $breakpointTablet) {
     font-size: 18px;
     padding: 0.5em;
     white-space: nowrap;
   }
-
   @media (max-width: $breakpointMobile) {
     font-size: 16px;
   }
@@ -129,7 +126,51 @@
 // ***** WORK *****
 
 .photographerWork {
+  margin-top: 0.5em;
+}
+
+.photographerWork__mediaWrapper {
   margin-top: 2em;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.photographerWork__mediaWrapper__container__media {
+  width: 350px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.photographerWork__mediaWrapper__container__description {
+  margin: 1em 0 2em 0;
+  width: 350px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.photographerWork__mediaWrapper__container__description__title {
+  color: $titleFontColors;
+  font-size: 24px;
+}
+
+.photographerWork__mediaWrapper__container__description__likeWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.3em;
+}
+
+.photographerWork__mediaWrapper__container__description__likeWrapper__like {
+  font-size: 16px;
+}
+
+.photographerWork__mediaWrapper__container__description__likeWrapper__icon {
+  color: $titleFontColors;
+}
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
 }
 
 // ***** FILTERS *****
@@ -156,7 +197,6 @@
     padding: 0.5em;
     white-space: nowrap;
   }
-
   @media (max-width: $breakpointMobile) {
     font-size: 16px;
   }
@@ -230,4 +270,31 @@
     background: $altTextFontColors;
     transform: translateX(-50%);
   }
+}
+
+.photographer__TJM {
+  position: sticky;
+  bottom: 0;
+  transform: translateX(255%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 376px;
+  background: $TJMBackground;
+  padding: .7em 1em .7em 1em;
+  border-radius: 4px 4px 0 0;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.photographer__TJM__likesWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .2em;
+}
+
+.TJMIcon {
+  color: #000000;
+  font-size: 24px;
 }

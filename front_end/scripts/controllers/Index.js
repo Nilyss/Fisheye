@@ -9,6 +9,7 @@ class Index {
     const photographers = this.utils.getDataFromSessionStorage('photographers');
 
 
+
     const displayPhotographers = async () => {
       if (!this.isPhotographerDisplayed && photographers) {
         // Get the DOM element where the photographers will be displayed
@@ -29,6 +30,7 @@ class Index {
           }`;
 
           group.forEach((photographer, photographerIndex) => {
+            console.log(photographer.name)
             // Adding specific class for some photographers
             let additionalClass = '';
             switch (groupIndex) {
