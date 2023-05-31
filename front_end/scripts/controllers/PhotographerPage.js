@@ -13,17 +13,18 @@ class PhotographerPage {
 
   // Get photographer data from the API with the id from the url
   async getPhotographerData() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const photographerId = urlParams.get('id');
-    const photographers = await this.photographersService.getPhotographers();
-    this.photographer = photographers.find(
-      (photographer) => photographer.id === parseInt(photographerId)
+    this.photographer = await this.photographersService.getPhotographer(
+      this.utils.getPhotographerId()
     );
-    this.medias = await this.mediaService.getMedia(parseInt(photographerId));
+
+    this.medias = await this.mediaService.getMedia(
+      parseInt(this.utils.getPhotographerId())
+    );
   }
 
   // Display the photographer banner
   displayPhotographerBanner() {
+
     // Adding specific class for some photographers profile picture
     let additionalClass = '';
     if (this.photographer.id === 243) {
@@ -54,6 +55,9 @@ class PhotographerPage {
         />
       </figure>
     `;
+
+    // Update sessionStorage with the photographer name for the contact modal
+    sessionStorage.setItem('photographerName', this.photographer.name);
   }
 
   // Display the filter button menu list
@@ -97,7 +101,6 @@ class PhotographerPage {
   }
 
   displayPhotographerDailyPrice() {
-
     // Get total likes (images likes + videos likes)
     const totalLikes = this.utils.getTotalLike(
       this.medias.images,
@@ -149,18 +152,36 @@ class PhotographerPage {
   }
 
   async initApp() {
-    try {
-      await this.getPhotographerData();
-      this.displayPhotographerBanner();
-      this.displayFilterButton();
-      this.displayPhotographerWork();
-      this.displayPhotographerDailyPrice();
-      this.addEventListenersToFilters();
-    } catch (error) {
-      console.error('An error occurred while initializing the app: ', error);
-    }
+    return new Promise(async (resolve, reject) => {
+      try {
+        await this.getPhotographerData();
+        this.displayPhotographerBanner();
+        this.displayFilterButton();
+        this.displayPhotographerWork();
+        this.displayPhotographerDailyPrice();
+        this.addEventListenersToFilters();
+        resolve();
+      } catch (error) {
+        console.error('An error occurred while initializing the app: ', error);
+        reject(error);
+      }
+    });
   }
 }
 
+// Initialise controller
+
 const photographerPage = new PhotographerPage();
-photographerPage.initApp();
+const contactModal = new ContactModal();
+
+photographerPage
+  .initApp()
+  .then(() => {
+    contactModal.initApp();
+  })
+  .catch((error) => {
+    console.error(
+      'An error occurred while initializing the contact Modal: ',
+      error
+    );
+  });

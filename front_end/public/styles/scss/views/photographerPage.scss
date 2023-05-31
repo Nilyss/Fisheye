@@ -70,22 +70,7 @@
 }
 
 .photographerBanner__contactWrapper__contactBtn {
-  @media (max-width: $breakpointTablet) {
-    font-size: 18px;
-    padding: 0.5em;
-    white-space: nowrap;
-  }
-  @media (max-width: $breakpointMobile) {
-    font-size: 16px;
-  }
-  border: none;
-  background: $titleFontColors;
-  color: $altTextFontColors;
-  padding: 1em;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 20px;
-  cursor: pointer;
+  @include buttonStyle;
 }
 
 .photographerBanner__pictureWrapper {
@@ -193,15 +178,15 @@
 
 .photographerWork__filtersWrapper__ButtonWrapper__button {
   @media (max-width: $breakpointTablet) {
-    font-size: 18px;
-    padding: 0.5em;
     white-space: nowrap;
+    padding: 0.5em;
+    font-size: 18px;
   }
   @media (max-width: $breakpointMobile) {
     font-size: 16px;
   }
-  border: none;
   background: $titleFontColors;
+  border: none;
   color: $altTextFontColors;
   padding: 1em;
   border-radius: 4px;
@@ -213,6 +198,9 @@
   justify-content: flex-start;
   gap: 0.5em;
   width: 174px;
+  &:focus {
+    outline: 6px solid $textFontColors;
+  }
 }
 
 .photographerWork__filtersWrapper__ButtonWrapper__elementWrapper {

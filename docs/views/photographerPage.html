@@ -1,3 +1,4 @@
+<!-- made by Nicolas DECRESSAC — 2023 -->
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -8,6 +9,8 @@
     <meta charset="UTF-8" />
     <title>Fisheye - Photographe</title>
     <link rel="icon" type="image/x-icon" href="../public/assets/favicon.png" />
+
+    <!-- fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
       rel="stylesheet"
@@ -17,7 +20,15 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
-    <link rel="stylesheet" href="../public/styles/css/views/photographerPage.css" />
+    <!-- views & components css -->
+    <link
+      rel="stylesheet"
+      href="../public/styles/css/views/photographerPage.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../public/styles/css/components/contactModal.css"
+    />
   </head>
 
   <body>
@@ -34,7 +45,7 @@
         </a>
       </div>
     </header>
-    <main class='main'>
+    <main class="main">
       <section class="photographersBanner">
         <!-- JS DOM INJECTION  FROM CONTROLLER -->
       </section>
@@ -45,20 +56,21 @@
     <footer></footer>
 
     <!-- UTILS -->
-    <script src='../scripts/utils/Utils.js'></script>
+    <script src="../scripts/utils/Utils.js"></script>
 
     <!-- API -->
     <script src="../scripts/controllers/ApiCalls.js"></script>
 
-    <!-- MODELS -->
-    <script src='../scripts/factories/mediaFactory.js'></script>
-    <script src='../scripts/factories/photographerFactory.js'></script>
+    <!-- FACTORIES -->
+    <script src="../scripts/factories/mediaFactory.js"></script>
+    <script src="../scripts/factories/photographerFactory.js"></script>
 
     <!-- SERVICES -->
     <script src="../scripts/services/MediaService.js"></script>
     <script src="../scripts/services/PhotographersService.js"></script>
 
     <!-- CONTROLLERS -->
-    <script src='../scripts/controllers/PhotographerPage.js'></script>
+    <script src="../scripts/controllers/ContactModal.js"></script>
+    <script src="../scripts/controllers/PhotographerPage.js"></script>
   </body>
 </html>

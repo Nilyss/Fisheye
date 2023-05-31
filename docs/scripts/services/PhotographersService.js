@@ -2,6 +2,7 @@ class PhotographersService extends ApiCalls {
   constructor() {
     super();
     this.photographers = null;
+    this.utils = new Utils();
   }
 
   // ********** GET REQUEST **********
@@ -14,5 +15,10 @@ class PhotographersService extends ApiCalls {
     );
 
     return this.photographers;
+  }
+
+  async getPhotographer(id) {
+    const photographers = await this.getPhotographers();
+    return this.utils.findPhotographer(photographers, id);
   }
 }

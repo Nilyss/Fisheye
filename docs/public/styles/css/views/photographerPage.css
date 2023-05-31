@@ -14,6 +14,10 @@ body {
   max-width: 1440px;
 }
 
+a:focus, button:focus {
+  outline: 6px solid #000000;
+}
+
 header {
   display: flex;
   align-items: center;
@@ -144,6 +148,9 @@ header {
     font-size: 16px;
   }
 }
+.photographerBanner__contactWrapper__contactBtn:focus {
+  outline: 6px solid #000000;
+}
 
 .photographerBanner__pictureWrapper {
   width: 200px;
@@ -247,8 +254,8 @@ header {
 }
 
 .photographerWork__filtersWrapper__ButtonWrapper__button {
-  border: none;
   background: #901C1C;
+  border: none;
   color: #FFFFFF;
   padding: 1em;
   border-radius: 4px;
@@ -263,15 +270,18 @@ header {
 }
 @media (max-width: 1024px) {
   .photographerWork__filtersWrapper__ButtonWrapper__button {
-    font-size: 18px;
-    padding: 0.5em;
     white-space: nowrap;
+    padding: 0.5em;
+    font-size: 18px;
   }
 }
 @media (max-width: 768px) {
   .photographerWork__filtersWrapper__ButtonWrapper__button {
     font-size: 16px;
   }
+}
+.photographerWork__filtersWrapper__ButtonWrapper__button:focus {
+  outline: 6px solid #000000;
 }
 
 .photographerWork__filtersWrapper__ButtonWrapper__elementWrapper {
