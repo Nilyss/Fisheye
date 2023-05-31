@@ -1,5 +1,6 @@
 class PhotographerPage {
   constructor() {
+    this.utils = new Utils();
     this.photographersService = new PhotographersService();
     this.mediaService = new MediaService();
     this.photographer = null;
@@ -91,15 +92,10 @@ class PhotographerPage {
   }
 
   displayPhotographerDailyPrice() {
-    const totalImagesLikes = this.medias.images.reduce(
-      (acc, image) => acc + image.likes,
-      0
+    const totalLikes = this.utils.getTotalLike(
+      this.medias.images,
+      this.medias.videos
     );
-    const totalVideosLikes = this.medias.videos.reduce(
-      (acc, video) => acc + video.likes,
-      0
-    );
-    const totalLikes = totalImagesLikes + totalVideosLikes;
 
     const photographerDailyPrice = document.querySelector('.main');
     photographerDailyPrice.innerHTML += `
