@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <meta charset="UTF-8" />
+    <title>Fisheye</title>
+    <link rel="icon" type="image/x-icon" href="./public/assets/favicon.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <!-- material icons -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link rel="stylesheet" href="./public/styles/css/views/index.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="brandingWrapper">
+        <a href="./index.html" title="Retour à l'accueil">
+          <figure class="brandingWrapper__imgContainer">
+            <img
+              class="brandingWrapper__imgContainer__img"
+              src="./public/assets/logo.png"
+              alt="Fisheye Home page"
+            />
+          </figure>
+        </a>
+      </div>
+      <div class="titleWrapper">
+        <h1 class="titleWrapper__title">Nos photographes</h1>
+      </div>
+    </header>
+
+    <main>
+      <section class="photographersContainer"></section>
+    </main>
+
+    <footer></footer>
+
+    <!-- API -->
+    <script src="./scripts/controllers/ApiCalls.js"></script>
+
+    <!-- MODELS -->
+    <script src='./scripts/factories/mediaFactory.js'></script>
+    <script src='./scripts/factories/photographerFactory.js'></script>
+
+    <!-- SERVICES -->
+    <script src="./scripts/services/MediaService.js"></script>
+    <script src="./scripts/services/PhotographersService.js"></script>
+
+    <!-- CONTROLLERS -->
+    <script src="./scripts/controllers/Index.js"></script>
+  </body>
+</html>

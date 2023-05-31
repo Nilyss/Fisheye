@@ -1,0 +1,157 @@
+html,
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "DM-sans", sans-serif;
+}
+
+body {
+  padding: 2.625em 2.625em 0 2.625em;
+  margin: auto;
+  max-width: 1440px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.625em 0 2.625em;
+  margin-bottom: 7.0625em;
+}
+@media (max-width: 768px) {
+  header {
+    flex-flow: column;
+    gap: 2em;
+    text-align: center;
+    margin-bottom: 4em;
+  }
+}
+
+.brandingWrapper__imgContainer {
+  width: 200px;
+}
+
+.brandingWrapper__imgContainer__img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.titleWrapper__title {
+  font-size: 2.25em;
+  font-weight: 400;
+  color: #901C1C;
+  cursor: default;
+}
+
+.photographersContainer {
+  min-height: 60vh;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+}
+
+.photographersGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+@media (max-width: 768px) {
+  .photographersGroup {
+    flex-flow: column;
+    align-items: center;
+    gap: 4em;
+    margin-bottom: 4em;
+  }
+}
+
+.photographer {
+  width: 350px;
+  height: 200px;
+  display: flex;
+  flex-flow: column;
+  gap: 0.3em;
+}
+.photographer p,
+.photographer blockquote {
+  cursor: default;
+}
+
+.photographer__link {
+  text-decoration: none;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.photographer__link__imgWrapper {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0 13px 27px -5px, rgba(0, 0, 0, 0.3) 0 8px 16px -8px;
+}
+@media (max-width: 768px) {
+  .photographer__link__imgWrapper {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.photographer__link__imgWrapper__img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.firstPhotographer {
+  margin-top: 2em;
+  width: auto;
+  height: 400px;
+}
+
+.portraitPicture {
+  margin-top: 4em;
+  width: auto;
+  height: 350px;
+}
+
+.photographer__link__nameWrapper__name {
+  white-space: nowrap;
+  font-weight: 400;
+  font-size: 2.25em;
+  color: #D3573C;
+}
+@media (max-width: 768px) {
+  .photographer__link__nameWrapper__name {
+    margin-top: 0.5em;
+    font-size: 1.25em;
+  }
+}
+
+.photographer__city {
+  font-weight: 400;
+  font-size: 0.8125em;
+  color: #D3573C;
+}
+
+.photographer__tagline {
+  font-weight: 400;
+  font-size: 0.625em;
+  color: #000000;
+}
+
+.photographer__price {
+  font-weight: 400;
+  font-size: 0.5625em;
+  color: #757575;
+}
+
+/*# sourceMappingURL=index.css.map */
