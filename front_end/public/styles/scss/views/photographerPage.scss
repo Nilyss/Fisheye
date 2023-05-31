@@ -210,15 +210,16 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1em;
+  justify-content: flex-start;
+  gap: 0.5em;
+  width: 174px;
 }
 
 .photographerWork__filtersWrapper__ButtonWrapper__elementWrapper {
   display: none;
   width: 174px;
   position: absolute;
-  top: 0;
+  top: 4px;
   left: 0;
   z-index: 1;
   background: $titleFontColors;
@@ -244,7 +245,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1em;
   position: relative;
 }
@@ -281,7 +282,7 @@
   justify-content: space-between;
   width: 376px;
   background: $TJMBackground;
-  padding: .7em 1em .7em 1em;
+  padding: 0.7em 1em 0.7em 1em;
   border-radius: 4px 4px 0 0;
   font-size: 24px;
   font-weight: 500;
@@ -291,7 +292,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: .2em;
+  gap: 0.2em;
 }
 
 .TJMIcon {

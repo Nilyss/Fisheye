@@ -8,8 +8,10 @@ class PhotographerPage {
     this.photographerWork = document.querySelector('.photographerWork');
     this.photographersBanner = document.querySelector('.photographersBanner');
     this.arrowUp = '../public/assets/icons/arrowUp.svg';
+    this.arrowDown = '../public/assets/icons/arrowDown.svg';
   }
 
+  // Get photographer data from the API with the id from the url
   async getPhotographerData() {
     const urlParams = new URLSearchParams(window.location.search);
     const photographerId = urlParams.get('id');
@@ -20,6 +22,7 @@ class PhotographerPage {
     this.medias = await this.mediaService.getMedia(parseInt(photographerId));
   }
 
+  // Display the photographer banner
   displayPhotographerBanner() {
     // Adding specific class for some photographers profile picture
     let additionalClass = '';
@@ -53,6 +56,7 @@ class PhotographerPage {
     `;
   }
 
+  // Display the filter button menu list
   displayFilterButton() {
     let buttonName = 'Popularité';
     this.photographerWork.innerHTML += `
@@ -65,7 +69,7 @@ class PhotographerPage {
           aria-haspopup='listbox' 
           aria-expanded='true'>
           ${buttonName}
-            <img src='${this.arrowUp}' alt='fleche haut' />
+            <img src='${this.arrowDown}' alt='fleche bas' />
           </button>
           <ul class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper'>
             <li class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters'>Popularité               
@@ -79,6 +83,7 @@ class PhotographerPage {
     `;
   }
 
+  // Display all medias from the photographer with the MediaFactory method
   displayPhotographerWork() {
     const mediaWrapper = document.createElement('div');
     mediaWrapper.classList.add('photographerWork__mediaWrapper');
@@ -92,6 +97,8 @@ class PhotographerPage {
   }
 
   displayPhotographerDailyPrice() {
+
+    // Get total likes (images likes + videos likes)
     const totalLikes = this.utils.getTotalLike(
       this.medias.images,
       this.medias.videos
@@ -109,6 +116,7 @@ class PhotographerPage {
     `;
   }
 
+  // Add event listener to the filter button
   addEventListenersToFilters() {
     const filterButton = document.querySelector(
       '.photographerWork__filtersWrapper__ButtonWrapper__button'

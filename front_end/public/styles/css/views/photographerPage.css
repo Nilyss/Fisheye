@@ -257,8 +257,9 @@ header {
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1em;
+  justify-content: flex-start;
+  gap: 0.5em;
+  width: 174px;
 }
 @media (max-width: 1024px) {
   .photographerWork__filtersWrapper__ButtonWrapper__button {
@@ -277,7 +278,7 @@ header {
   display: none;
   width: 174px;
   position: absolute;
-  top: 0;
+  top: 4px;
   left: 0;
   z-index: 1;
   background: #901C1C;
@@ -294,7 +295,7 @@ header {
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1em;
   position: relative;
 }
