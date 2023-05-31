@@ -9,7 +9,9 @@ html,
 }
 
 body {
-  padding: 2.625em;
+  padding: 2.625em 2.625em 0 2.625em;
+  margin: auto;
+  max-width: 1440px;
 }
 
 header {

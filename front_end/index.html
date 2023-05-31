@@ -12,6 +12,11 @@
       href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap"
       rel="stylesheet"
     />
+    <!-- material icons -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <link rel="stylesheet" href="./public/styles/css/views/index.css" />
   </head>
 
@@ -23,7 +28,7 @@
             <img
               class="brandingWrapper__imgContainer__img"
               src="./public/assets/logo.png"
-              alt="Fisheye branding logo"
+              alt="Fisheye Home page"
             />
           </figure>
         </a>
@@ -39,19 +44,18 @@
 
     <footer></footer>
 
-    <!-- API CALLS -->
+    <!-- API -->
     <script src="./scripts/controllers/ApiCalls.js"></script>
 
     <!-- MODELS -->
-    <script src="./scripts/models/media.js"></script>
-    <script src="./scripts/models/Photographers.js"></script>
+    <script src='./scripts/factories/mediaFactory.js'></script>
+    <script src='./scripts/factories/photographerFactory.js'></script>
 
     <!-- SERVICES -->
     <script src="./scripts/services/MediaService.js"></script>
     <script src="./scripts/services/PhotographersService.js"></script>
 
     <!-- CONTROLLERS -->
-    <script src="./scripts/controllers/ApiLocalStorage.js"></script>
     <script src="./scripts/controllers/Index.js"></script>
   </body>
 </html>
