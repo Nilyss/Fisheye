@@ -29,6 +29,7 @@ class ContactModal {
     contactModal.setAttribute('role', 'dialog');
     contactModal.setAttribute('aria-modal', 'true');
     contactModal.setAttribute('aria-label', 'Contactez-moi');
+    contactModal.setAttribute('aria-describedby', 'Modale de contact');
 
     // Create modal elements
     const headerDiv = document.createElement('div');
@@ -40,11 +41,13 @@ class ContactModal {
     const h1 = document.createElement('h1');
     h1.classList.add('contactModal__header__title');
     h1.textContent = 'Contactez-moi';
+    h1.setAttribute('aria-describedby', 'Titre de la modale');
 
     const closeButton = document.createElement('button');
     closeButton.classList.add(
       'contactModal__header__titleWrapper__closeButtonWrapper'
     );
+    closeButton.setAttribute('aria-describedby', 'Fermer la modale');
 
     const img = document.createElement('img');
     img.classList.add(
@@ -55,7 +58,8 @@ class ContactModal {
 
     const p = document.createElement('p');
     p.classList.add('contactModal__header__photographerName');
-    p.textContent = photographerName; // This is now safe from XSS
+    p.textContent = photographerName;
+    p.setAttribute('aria-describedby', 'Nom du photographe');
 
     // Append child elements
     closeButton.appendChild(img);
@@ -84,6 +88,7 @@ class ContactModal {
       label.classList.add('contactModal__body__form__label');
       label.htmlFor = fields[i];
       label.textContent = labels[i];
+      label.setAttribute('aria-describedby', `Champ de saisie ${labels[i]}`);
 
       let input;
       if (types[i] !== 'textarea') {
@@ -97,6 +102,7 @@ class ContactModal {
       input.id = fields[i];
       input.name = fields[i];
       input.required = true;
+      input.setAttribute('aria-describedby', `Champ de saisie ${labels[i]}`);
 
       // Create error message element and hide it by default
       const errorSpan = document.createElement('span');
@@ -118,6 +124,7 @@ class ContactModal {
     button.classList.add('contactModal__body__form__buttonWrapper__button');
     button.type = 'submit';
     button.textContent = 'Envoyer';
+    button.setAttribute('aria-describedby', `Envoyer le message`);
 
     buttonWrapper.appendChild(button);
 
@@ -139,7 +146,6 @@ class ContactModal {
       for (let field in this.formInputs) {
         isValid = this.validateInput(field) && isValid;
       }
-
       if (!isValid) {
         return;
       }
@@ -181,7 +187,7 @@ class ContactModal {
         isValid = this.emailRegex.test(this.formInputs[field].input.value);
         break;
       case 'message':
-        isValid = this.formInputs[field].input.value.trim() !== '';
+        isValid = this.messageRegex.test(this.formInputs[field].input.value);
         break;
     }
 
