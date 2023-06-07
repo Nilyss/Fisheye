@@ -1,0 +1,130 @@
+html,
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "DM-sans", sans-serif;
+}
+
+body {
+  padding: 2.625em 2.625em 0 2.625em;
+  margin: auto;
+  max-width: 1440px;
+}
+
+a:focus, button:focus {
+  outline: 6px solid #000000;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.625em 0 2.625em;
+  margin-bottom: 7.0625em;
+}
+@media (max-width: 768px) {
+  header {
+    flex-flow: column;
+    gap: 2em;
+    text-align: center;
+    margin-bottom: 4em;
+  }
+}
+
+.brandingWrapper__imgContainer {
+  width: 200px;
+}
+
+.brandingWrapper__imgContainer__img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.titleWrapper__title {
+  font-size: 2.25em;
+  font-weight: 400;
+  color: #901C1C;
+  cursor: default;
+}
+
+.lightbox {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100%;
+  background: #FFFFFF;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 2em;
+}
+
+.lightbox__leftWrapper {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 42px;
+}
+
+.lightbox__leftWrapper__goPreviousButton {
+  border: none;
+  background: none;
+}
+
+.lightbox__middleWrapper {
+  max-height: 900px;
+  overflow: hidden;
+}
+
+.lightbox__middleWrapper__mediaWrapper {
+  width: 1050px;
+  max-height: 900px;
+  overflow: hidden;
+}
+
+.lightbox__middleWrapper__mediaWrapper__media {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.lightbox__rightWrapper {
+  width: 10%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox__rightWrapper__closeButton {
+  width: 42px;
+  border: none;
+  background: none;
+}
+
+.lightbox__rightWrapper__closeButton__img {
+  object-fit: cover;
+  width: 100%;
+  cursor: pointer;
+}
+
+.lightbox__rightWrapper__goNextButton {
+  border: none;
+  background: none;
+  margin: auto;
+}
+
+.lightbox.hidden {
+  transform: translateY(-130%) translateX(-50%);
+  transition: transform 0.5s ease-out;
+}
+
+.lightbox.visible {
+  transform: translateY(0) translateX(-50%);
+  transition: transform 0.5s ease-out;
+}
+
+/*# sourceMappingURL=lightbox.css.map */

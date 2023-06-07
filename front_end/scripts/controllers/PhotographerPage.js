@@ -94,8 +94,12 @@ class PhotographerPage {
     this.photographerWork.appendChild(mediaWrapper);
 
     const allMedias = [...this.medias.images, ...this.medias.videos];
+    sessionStorage.setItem('medias', JSON.stringify(allMedias));
+
     allMedias.forEach((media) => {
       const mediaElement = MediaFactory.createMediaElement(media);
+      mediaElement.querySelector('.photographerWork__mediaWrapper__container__link')
+        .setAttribute('data-index', media.id);
       mediaWrapper.appendChild(mediaElement);
     });
   }
@@ -120,7 +124,7 @@ class PhotographerPage {
   }
 
   // Add event listener to the filter button
-  addEventListenersToFilters() {
+  addEventListenersPhotographerPage() {
     const filterButton = document.querySelector(
       '.photographerWork__filtersWrapper__ButtonWrapper__button'
     );
@@ -159,7 +163,7 @@ class PhotographerPage {
         this.displayFilterButton();
         this.displayPhotographerWork();
         this.displayPhotographerDailyPrice();
-        this.addEventListenersToFilters();
+        this.addEventListenersPhotographerPage();
         resolve();
       } catch (error) {
         console.error('An error occurred while initializing the app: ', error);
@@ -169,19 +173,20 @@ class PhotographerPage {
   }
 }
 
-// Initialise controller
-
+// Initialise controllers
 const photographerPage = new PhotographerPage();
 const contactModal = new ContactModal();
+const lightbox = new Lightbox();
 
 photographerPage
   .initApp()
   .then(() => {
     contactModal.initApp();
+    lightbox.initApp();
   })
   .catch((error) => {
     console.error(
-      'An error occurred while initializing the contact Modal: ',
+      'An error occurred while initializing the component: ',
       error
     );
   });

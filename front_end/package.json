@@ -3,6 +3,6 @@
     "sass": "^1.62.1"
   },
   "scripts": {
-    "sass": "sass --watch public/styles/scss/views/index.scss:./public/styles/css/views/index.css public/styles/scss/views/photographerPage.scss:./public/styles/css/views/photographerPage.css public/styles/scss/components/contactModal.scss:./public/styles/css/components/contactModal.css -w"
+    "sass": "sass --watch public/styles/scss/views/index.scss:./public/styles/css/views/index.css public/styles/scss/views/photographerPage.scss:./public/styles/css/views/photographerPage.css public/styles/scss/components/contactModal.scss:./public/styles/css/components/contactModal.css public/styles/scss/components/lightbox.scss:./public/styles/css/components/lightbox.css -w"
   }
 }

@@ -38,6 +38,13 @@ class MediaFactory {
       mediaTag = video;
     }
 
+    const mediaLink = document.createElement('button');
+    mediaLink.classList.add('photographerWork__mediaWrapper__container__link');
+    mediaLink.target = '_blank';
+    mediaLink.setAttribute('role', 'button');
+    mediaLink.appendChild(mediaTag);
+    mediaElement.appendChild(mediaLink);
+
     const figcaption = document.createElement('figcaption');
     figcaption.classList.add(
       'photographerWork__mediaWrapper__container__description'
@@ -71,14 +78,12 @@ class MediaFactory {
     iconSpan.textContent = 'favorite';
     icon.appendChild(iconSpan);
 
-    // Render elements in the DOM
     likeWrapper.appendChild(likes);
     likeWrapper.appendChild(icon);
 
     figcaption.appendChild(title);
     figcaption.appendChild(likeWrapper);
 
-    mediaElement.appendChild(mediaTag);
     mediaElement.appendChild(figcaption);
 
     return mediaElement;

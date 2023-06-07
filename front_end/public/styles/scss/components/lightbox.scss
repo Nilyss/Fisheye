@@ -1,0 +1,88 @@
+@import '../utils/globalStyles.scss';
+@import '../utils/variables.scss';
+@import '../utils/mixins.scss';
+
+.lightbox {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100%;
+  background: $lightboxBackground;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 2em;
+}
+
+.lightbox__leftWrapper {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 42px;
+}
+
+.lightbox__leftWrapper__goPreviousButton {
+  border: none;
+  background: none;
+}
+
+.lightbox__leftWrapper__goPreviousButton__img {
+}
+
+.lightbox__middleWrapper {
+  max-height: 900px;
+  overflow: hidden;
+}
+
+.lightbox__middleWrapper__mediaWrapper {
+  width: 1050px;
+  max-height: 900px;
+  overflow: hidden;
+}
+
+.lightbox__middleWrapper__mediaWrapper__media {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.lightbox__rightWrapper {
+  width: 10%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox__rightWrapper__closeButton {
+  width: 42px;
+  border: none;
+  background: none;
+}
+
+.lightbox__rightWrapper__closeButton__img {
+  object-fit: cover;
+  width: 100%;
+  cursor: pointer;
+}
+
+.lightbox__rightWrapper__goNextButton {
+  border: none;
+  background: none;
+  margin: auto;
+}
+
+.lightbox__rightWrapper__goNextButton__img {
+}
+
+// ********** ANIMATIONS **********
+
+.lightbox.hidden {
+  transform: translateY(-130%) translateX(-50%);
+  transition: transform 0.5s ease-out;
+}
+
+.lightbox.visible {
+  transform: translateY(0) translateX(-50%);
+  transition: transform 0.5s ease-out;
+}

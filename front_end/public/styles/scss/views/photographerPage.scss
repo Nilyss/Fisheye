@@ -112,6 +112,7 @@
 
 .photographerWork {
   margin-top: 0.5em;
+  cursor: default;
 }
 
 .photographerWork__mediaWrapper {
@@ -119,6 +120,12 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+}
+
+.photographerWork__mediaWrapper__container__link {
+  cursor: pointer;
+  border: none;
+  background: none;
 }
 
 .photographerWork__mediaWrapper__container__media {
