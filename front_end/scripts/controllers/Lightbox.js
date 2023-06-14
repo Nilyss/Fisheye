@@ -153,9 +153,6 @@ class Lightbox {
     }
   }
 
-
-
-
   // Close the lightbox
   closeLightbox() {
     if (this.lightbox) {
