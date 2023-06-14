@@ -5,11 +5,23 @@
 .lightbox {
   position: absolute;
   top: 0;
-  left: 50%;
-  width: 100%;
-  background: $lightboxBackground;
+  left: -10%;
+  min-width: 120%;
+  min-height: 100%;
+  background: linear-gradient(
+                  180deg,
+                  rgb(255, 255, 255) 0%,
+                  rgba(255, 255, 255, 0.3) 100%
+  );
+}
+
+.lightboxWrapper {
+  position: sticky;
+  top: 0;
+  left: 0;
   display: flex;
   flex-flow: row nowrap;
+  justify-content: center;
   padding: 2em;
 }
 
@@ -37,6 +49,7 @@
 .lightbox__middleWrapper__mediaWrapper {
   width: 1050px;
   max-height: 900px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -78,11 +91,11 @@
 // ********** ANIMATIONS **********
 
 .lightbox.hidden {
-  transform: translateY(-130%) translateX(-50%);
+  transform: translateY(-130%);
   transition: transform 0.5s ease-out;
 }
 
 .lightbox.visible {
-  transform: translateY(0) translateX(-50%);
+  transform: translateY(0);
   transition: transform 0.5s ease-out;
 }

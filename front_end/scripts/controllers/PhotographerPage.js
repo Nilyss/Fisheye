@@ -20,6 +20,7 @@ class PhotographerPage {
     this.medias = await this.mediaService.getMedia(
       parseInt(this.utils.getPhotographerId())
     );
+
   }
 
   // Display the photographer banner

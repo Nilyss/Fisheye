@@ -1,13 +1,17 @@
 class Lightbox {
   constructor() {
-    this.body = document.querySelector('main');
+    this.main = document.querySelector('main');
     this.lightbox = null;
+    this.lightboxWrapper = null;
     this.mediasLinks = null;
     this.closeButton = null;
     this.closeSVG = '../public/assets/icons/close--alt.svg';
     this.leftArrowSVG = '../public/assets/icons/arrowLeft.svg';
     this.rightArrowSVG = '../public/assets/icons/arrowRight.svg';
     this.medias = null;
+    this.goNextButton = null;
+    this.goPreviousButton = null;
+    this.currentIndex = 0;
   }
 
   displayLightbox(mediaId) {
@@ -17,6 +21,9 @@ class Lightbox {
     this.lightbox = document.createElement('section');
     this.lightbox.classList.add('lightbox', 'hidden');
 
+    this.lightboxWrapper = document.createElement('div');
+    this.lightboxWrapper.classList.add('lightboxWrapper');
+
     const leftWrapper = document.createElement('div');
     leftWrapper.classList.add('lightbox__leftWrapper');
 
@@ -24,7 +31,9 @@ class Lightbox {
     goPreviousButton.classList.add('lightbox__leftWrapper__goPreviousButton');
 
     const goPreviousButtonImg = document.createElement('img');
-    goPreviousButtonImg.classList.add('lightbox__leftWrapper__goPreviousButton__img');
+    goPreviousButtonImg.classList.add(
+      'lightbox__leftWrapper__goPreviousButton__img'
+    );
     goPreviousButtonImg.src = this.leftArrowSVG;
     goPreviousButtonImg.alt = 'Previous';
 
@@ -37,12 +46,30 @@ class Lightbox {
     const mediaWrapper = document.createElement('figure');
     mediaWrapper.classList.add('lightbox__middleWrapper__mediaWrapper');
 
-    const mediaImg = document.createElement('img');
-    mediaImg.classList.add('lightbox__middleWrapper__mediaWrapper__media');
-    mediaImg.src = `../public/assets/usersMedias/${currentMedia.photographerId}/${currentMedia.image}`;
-    mediaImg.alt = `photographer media ${currentMedia.name}`;
+    let mediaElement;
+    if (currentMedia.image) {
+      const img = document.createElement('img');
+      img.classList.add('lightbox__middleWrapper__mediaWrapper__media');
+      img.src = `../public/assets/usersMedias/${currentMedia.photographerId}/${currentMedia.image}`;
+      img.alt = `photographer media ${currentMedia.name}`;
+      mediaElement = img;
+    } else if (currentMedia.video) {
+      const video = document.createElement('video');
+      video.classList.add('lightbox__middleWrapper__mediaWrapper__media');
+      video.controls = true;
+      const source = document.createElement('source');
+      source.src = `../public/assets/usersMedias/${currentMedia.photographerId}/${currentMedia.video}`;
+      source.type = 'video/mp4';
+      video.appendChild(source);
+      mediaElement = video;
+    }
 
-    mediaWrapper.appendChild(mediaImg);
+    // const mediaImg = document.createElement('img');
+    // mediaImg.classList.add('lightbox__middleWrapper__mediaWrapper__media');
+    // mediaImg.src = `../public/assets/usersMedias/${currentMedia.photographerId}/${currentMedia.image}`;
+    // mediaImg.alt = `photographer media ${currentMedia.name}`;
+
+    mediaWrapper.appendChild(mediaElement);
     middleWrapper.appendChild(mediaWrapper);
 
     const rightWrapper = document.createElement('div');
@@ -70,11 +97,12 @@ class Lightbox {
     goNextButton.appendChild(goNextButtonImg);
     rightWrapper.appendChild(goNextButton);
 
-    this.lightbox.appendChild(leftWrapper);
-    this.lightbox.appendChild(middleWrapper);
-    this.lightbox.appendChild(rightWrapper);
+    this.lightbox.appendChild(this.lightboxWrapper);
+    this.lightboxWrapper.appendChild(leftWrapper);
+    this.lightboxWrapper.appendChild(middleWrapper);
+    this.lightboxWrapper.appendChild(rightWrapper);
 
-    this.body.appendChild(this.lightbox);
+    this.main.appendChild(this.lightbox);
 
     // timeout to remove the modal (avoid transition bug)
     setTimeout(() => {
@@ -85,7 +113,53 @@ class Lightbox {
     this.closeButton.addEventListener('click', () => {
       this.closeLightbox();
     });
+
+    this.goPreviousButton = document.querySelector('.lightbox__leftWrapper__goPreviousButton');
+    this.goNextButton = document.querySelector('.lightbox__rightWrapper__goNextButton');
+
+    this.goPreviousButton.addEventListener('click', () => {
+      this.currentIndex = (this.currentIndex - 1 + this.medias.length) % this.medias.length;
+      this.updateMedia();
+    });
+
+    this.goNextButton.addEventListener('click', () => {
+      this.currentIndex = (this.currentIndex + 1) % this.medias.length;
+      this.updateMedia();
+    });
   }
+
+  updateMedia() {
+    const currentMedia = this.medias[this.currentIndex];
+    const mediaWrapper = document.querySelector('.lightbox__middleWrapper__mediaWrapper');
+    const existingMediaElement = mediaWrapper.querySelector('.lightbox__middleWrapper__mediaWrapper__media');
+
+    if (existingMediaElement) {
+      // Delete existing media element if there is one
+      mediaWrapper.removeChild(existingMediaElement);
+    }
+
+    if (currentMedia.image) {
+      const img = document.createElement('img');
+      img.classList.add('lightbox__middleWrapper__mediaWrapper__media');
+      img.src = `../public/assets/usersMedias/${currentMedia.photographerId}/${currentMedia.image}`;
+      img.alt = `photographer media ${currentMedia.name}`;
+      mediaWrapper.appendChild(img);
+    } else if (currentMedia.video) {
+      const video = document.createElement('video');
+      video.classList.add('lightbox__middleWrapper__mediaWrapper__media');
+      video.controls = true;
+      const source = document.createElement('source');
+      source.src = `../public/assets/usersMedias/${currentMedia.photographerId}/${currentMedia.video}`;
+      source.type = 'video/mp4';
+      video.appendChild(source);
+      mediaWrapper.appendChild(video);
+      video.load();
+      video.play();
+    }
+  }
+
+
+
 
   // Close the lightbox
   closeLightbox() {
@@ -101,7 +175,9 @@ class Lightbox {
   }
 
   initEventListeners() {
-    this.mediasLinks = document.querySelectorAll('.photographerWork__mediaWrapper__container__link');
+    this.mediasLinks = document.querySelectorAll(
+      '.photographerWork__mediaWrapper__container__link'
+    );
     this.mediasLinks.forEach((mediaLink) => {
       mediaLink.addEventListener('click', (event) => {
         event.preventDefault();
@@ -113,12 +189,17 @@ class Lightbox {
 
   async initApp() {
     try {
-      this.mediasLinks = document.querySelectorAll('.photographerWork__mediaWrapper__container__link');
+      this.mediasLinks = document.querySelectorAll(
+        '.photographerWork__mediaWrapper__container__link'
+      );
       if (this.mediasLinks) {
         await this.initEventListeners();
       }
     } catch (error) {
-      console.error('An error occurred while initializing the lightbox: ', error);
+      console.error(
+        'An error occurred while initializing the lightbox: ',
+        error
+      );
     }
   }
 }
