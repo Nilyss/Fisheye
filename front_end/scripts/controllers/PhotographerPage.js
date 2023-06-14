@@ -5,10 +5,13 @@ class PhotographerPage {
     this.mediaService = new MediaService();
     this.photographer = null;
     this.medias = null;
+    this.mediaWrapper = null;
+    this.mediaElement = null;
     this.photographerWork = document.querySelector('.photographerWork');
     this.photographersBanner = document.querySelector('.photographersBanner');
     this.arrowUp = '../public/assets/icons/arrowUp.svg';
     this.arrowDown = '../public/assets/icons/arrowDown.svg';
+    this.activeFilter = 'Popularité';
   }
 
   // Get photographer data from the API with the id from the url
@@ -24,7 +27,6 @@ class PhotographerPage {
 
   // Display the photographer banner
   displayPhotographerBanner() {
-
     // Adding specific class for some photographers profile picture
     let additionalClass = '';
     if (this.photographer.id === 243) {
@@ -76,31 +78,61 @@ class PhotographerPage {
             <img src='${this.arrowDown}' alt='fleche bas' />
           </button>
           <ul class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper'>
-            <li class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters'>Popularité               
+            <li class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters'>${this.activeFilter}               
               <img src='${this.arrowUp}' alt='fleche haut' />
             </li>
-            <li class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters middleFilter'>Date</li>
-            <li class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters'>Titre</li>   
+            <li class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters' data-filter='Popularité'>Popularité</li>   
+            <li class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters middleFilter' data-filter='Date'>Date</li>
+            <li class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters' data-filter='Titre'>Titre</li>   
           </ul>     
         </div>
       </div>
     `;
   }
 
-  // Display all medias from the photographer with the MediaFactory method
+  // Display all medias from the photographer with the MediaFactory method after sorting them
   displayPhotographerWork() {
-    const mediaWrapper = document.createElement('div');
-    mediaWrapper.classList.add('photographerWork__mediaWrapper');
-    this.photographerWork.appendChild(mediaWrapper);
+    // clear existing medias
+    if(this.mediaWrapper) this.mediaWrapper.innerHTML = '';
+
+    // Create a tag where to display the medias
+    this.mediaWrapper = document.createElement('div');
+    this.mediaWrapper.classList.add('photographerWork__mediaWrapper');
+    this.photographerWork.appendChild(this.mediaWrapper);
+
+    const selectedFilter = this.activeFilter || 'Popularité';
+    console.log('selectedFilter', selectedFilter);
 
     const allMedias = [...this.medias.images, ...this.medias.videos];
     sessionStorage.setItem('medias', JSON.stringify(allMedias));
 
-    allMedias.forEach((media) => {
-      const mediaElement = MediaFactory.createMediaElement(media);
-      mediaElement.querySelector('.photographerWork__mediaWrapper__container__link')
+    // Filter and sort medias based on the selected filter
+    let filteredMedias = allMedias;
+    console.log('filteredMedias', filteredMedias);
+
+    if (selectedFilter === 'Popularité') {
+      console.log('popularité');
+      filteredMedias = allMedias.sort((a, b) => b.likes - a.likes);
+      this.activeFilter = 'Popularité';
+    } else if (selectedFilter === 'Date') {
+      console.log('Date');
+      filteredMedias = allMedias.sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      );
+      this.activeFilter = 'Date';
+    } else if (selectedFilter === 'Title') {
+      console.log('Title');
+      filteredMedias = allMedias.sort((a, b) => a.title.localeCompare(b.title));
+      this.activeFilter = 'Title';
+    }
+
+    // Display filtered medias
+    filteredMedias.forEach((media) => {
+      this.mediaElement = MediaFactory.createMediaElement(media);
+      this.mediaElement
+        .querySelector('.photographerWork__mediaWrapper__container__link')
         .setAttribute('data-index', media.id);
-      mediaWrapper.appendChild(mediaElement);
+      this.mediaWrapper.appendChild(this.mediaElement);
     });
   }
 
@@ -150,9 +182,13 @@ class PhotographerPage {
     filterButton.addEventListener('click', toggleFilterList);
 
     // Add event listener to each filter element
-    filterElements.forEach((filterElement) =>
-      filterElement.addEventListener('click', toggleFilterList)
-    );
+    filterElements.forEach((filterElement) => {
+      filterElement.addEventListener('click', () => {
+        this.activeFilter = filterElement.getAttribute('data-filter');
+        toggleFilterList();
+        this.displayPhotographerWork();
+      });
+    });
   }
 
   async initApp() {
