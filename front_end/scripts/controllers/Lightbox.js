@@ -64,11 +64,6 @@ class Lightbox {
       mediaElement = video;
     }
 
-    // const mediaImg = document.createElement('img');
-    // mediaImg.classList.add('lightbox__middleWrapper__mediaWrapper__media');
-    // mediaImg.src = `../public/assets/usersMedias/${currentMedia.photographerId}/${currentMedia.image}`;
-    // mediaImg.alt = `photographer media ${currentMedia.name}`;
-
     mediaWrapper.appendChild(mediaElement);
     middleWrapper.appendChild(mediaWrapper);
 
