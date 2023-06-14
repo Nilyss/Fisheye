@@ -18,6 +18,12 @@ body {
   max-width: 1440px;
 }
 
+a, button {
+  &:focus {
+    outline: 6px solid variables.$textFontColors;
+  }
+}
+
 // ********** HEADER **********
 header {
   @media (max-width: variables.$breakpointMobile) {

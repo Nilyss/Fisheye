@@ -1,1 +1,24 @@
 @import './variables.scss';
+
+@mixin buttonStyle {
+  @media (max-width: $breakpointTablet) {
+    font-size: 18px;
+    padding: 0.5em;
+    white-space: nowrap;
+  }
+  @media (max-width: $breakpointMobile) {
+    font-size: 16px;
+  }
+  border: none;
+  background: $titleFontColors;
+  color: $altTextFontColors;
+  padding: 1em;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+
+  &:focus {
+    outline: 6px solid $textFontColors;
+  }
+}

@@ -1,0 +1,180 @@
+html,
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "DM-sans", sans-serif;
+}
+
+body {
+  padding: 2.625em 2.625em 0 2.625em;
+  margin: auto;
+  max-width: 1440px;
+}
+
+a:focus, button:focus {
+  outline: 6px solid #000000;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2.625em 0 2.625em;
+  margin-bottom: 7.0625em;
+}
+@media (max-width: 768px) {
+  header {
+    flex-flow: column;
+    gap: 2em;
+    text-align: center;
+    margin-bottom: 4em;
+  }
+}
+
+.brandingWrapper__imgContainer {
+  width: 200px;
+}
+
+.brandingWrapper__imgContainer__img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.titleWrapper__title {
+  font-size: 2.25em;
+  font-weight: 400;
+  color: #901C1C;
+  cursor: default;
+}
+
+.contactModal {
+  position: absolute;
+  top: -4.5em;
+  left: 50%;
+  width: 700px;
+  background: #DB8876;
+  border-radius: 8px;
+  padding: 2em;
+  box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
+
+.contactModal__header {
+  width: 100%;
+}
+
+.contactModal__header__titleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contactModal__header__title {
+  font-weight: 400;
+  font-size: 64px;
+}
+
+.contactModal__header__titleWrapper__closeButtonWrapper {
+  width: 72px;
+  border: none;
+  background: none;
+}
+
+.contactModal__header__titleWrapper__closeButtonWrapper__icon {
+  object-fit: cover;
+  width: 100%;
+  cursor: pointer;
+}
+
+.contactModal__header__photographerName {
+  font-weight: 400;
+  font-size: 64px;
+}
+
+.contactModal__body {
+  margin-top: 2em;
+}
+
+.contactModal__body__form {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.35em;
+}
+
+.contactModal__body__form__label {
+  font-weight: 400;
+  font-size: 36px;
+}
+
+.contactModal__body__form__input {
+  color: #312e2e;
+  height: 68px;
+  border: none;
+  border-radius: 4px;
+  font-size: 24px;
+  padding-left: 1em;
+}
+.contactModal__body__form__input:focus {
+  outline: 6px solid #000000;
+}
+
+.contactModal__body__form__textarea {
+  height: 170px;
+  border-radius: 4px;
+  border: none;
+  padding: 1em;
+}
+.contactModal__body__form__textarea:focus {
+  outline: 6px solid #000000;
+}
+
+.contactModal__body__form__buttonWrapper__button {
+  margin-top: 1em;
+  border: none;
+  background: #901C1C;
+  color: #FFFFFF;
+  padding: 1em;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+  width: 170px;
+}
+@media (max-width: 1024px) {
+  .contactModal__body__form__buttonWrapper__button {
+    font-size: 18px;
+    padding: 0.5em;
+    white-space: nowrap;
+  }
+}
+@media (max-width: 768px) {
+  .contactModal__body__form__buttonWrapper__button {
+    font-size: 16px;
+  }
+}
+.contactModal__body__form__buttonWrapper__button:focus {
+  outline: 6px solid #000000;
+}
+
+input.error,
+textarea.error {
+  border: 5px solid #FF0000;
+}
+
+input.valid {
+  border: 5px solid #00FF00;
+}
+
+.contactModal.hidden {
+  transform: translateY(-130%) translateX(-50%);
+  transition: transform 0.5s ease-out;
+}
+
+.contactModal.visible {
+  transform: translateY(0) translateX(-50%);
+  transition: transform 0.5s ease-out;
+}
+
+/*# sourceMappingURL=contactModal.css.map */
