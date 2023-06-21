@@ -90,41 +90,58 @@ class PhotographerPage {
     `;
   }
 
+
   // Display all medias from the photographer with the MediaFactory method after sorting them
-  displayPhotographerWork() {
-    // clear existing medias
-    if(this.mediaWrapper) this.mediaWrapper.innerHTML = '';
+  displayPhotographerWork(isOnLoad) {
 
-    // Create a tag where to display the medias
-    this.mediaWrapper = document.createElement('div');
-    this.mediaWrapper.classList.add('photographerWork__mediaWrapper');
-    this.photographerWork.appendChild(this.mediaWrapper);
+    // check if is it the first time we load the page. If not, we remove the medias from the DOM for refresh it with the new filter
+    if (isOnLoad === false) {
 
-    const selectedFilter = this.activeFilter || 'Popularité';
-    console.log('selectedFilter', selectedFilter);
+     const wrapper = [...document.getElementsByClassName('photographerWork__mediaWrapper')]
+      wrapper.map((n) => {
+        n && n.removeChild(n.firstChild);
+      });
+    } else {
+      // Create a tag where to display the medias
+      this.mediaWrapper = document.createElement('div');
+      this.mediaWrapper.classList.add('photographerWork__mediaWrapper');
+      this.mediaWrapper.setAttribute('id', 'test');
+      this.photographerWork.appendChild(this.mediaWrapper);
+    }
 
-    const allMedias = [...this.medias.images, ...this.medias.videos];
+    let selectedFilter = this.activeFilter;
+
+    let allMedias = [...this.medias.images, ...this.medias.videos];
     sessionStorage.setItem('medias', JSON.stringify(allMedias));
 
     // Filter and sort medias based on the selected filter
-    let filteredMedias = allMedias;
-    console.log('filteredMedias', filteredMedias);
+    let filteredMedias = null;
 
-    if (selectedFilter === 'Popularité') {
-      console.log('popularité');
-      filteredMedias = allMedias.sort((a, b) => b.likes - a.likes);
-      this.activeFilter = 'Popularité';
-    } else if (selectedFilter === 'Date') {
-      console.log('Date');
-      filteredMedias = allMedias.sort(
-        (a, b) => new Date(b.date) - new Date(a.date)
-      );
-      this.activeFilter = 'Date';
-    } else if (selectedFilter === 'Title') {
-      console.log('Title');
-      filteredMedias = allMedias.sort((a, b) => a.title.localeCompare(b.title));
-      this.activeFilter = 'Title';
+    switch (selectedFilter) {
+
+      case 'Popularité':
+        filteredMedias = allMedias.sort((a, b) => b.likes - a.likes);
+        this.activeFilter = 'Popularité';
+        break;
+
+      case 'Date':
+        filteredMedias = allMedias.sort(
+          (a, b) => a.date.split('-') - b.date.split('-')
+        );
+        this.activeFilter = 'Date';
+        break;
+
+      case 'Titre':
+        filteredMedias = allMedias.sort((a, b) => a.title.localeCompare(b.title));
+        this.activeFilter = 'Titre';
+        break;
+
+      default: {
+        filteredMedias = allMedias.sort((a, b) => b.likes - a.likes);
+        this.activeFilter = 'Popularité';
+      }
     }
+
 
     // Display filtered medias
     filteredMedias.forEach((media) => {
@@ -186,7 +203,7 @@ class PhotographerPage {
       filterElement.addEventListener('click', () => {
         this.activeFilter = filterElement.getAttribute('data-filter');
         toggleFilterList();
-        this.displayPhotographerWork();
+        this.displayPhotographerWork(false);
       });
     });
   }
@@ -197,7 +214,7 @@ class PhotographerPage {
         await this.getPhotographerData();
         this.displayPhotographerBanner();
         this.displayFilterButton();
-        this.displayPhotographerWork();
+        this.displayPhotographerWork(true);
         this.displayPhotographerDailyPrice();
         this.addEventListenersPhotographerPage();
         resolve();
