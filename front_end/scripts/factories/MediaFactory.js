@@ -1,7 +1,7 @@
 class MediaFactory {
   constructor() {}
 
-  static createMedia = (media) => {
+  createMedia = (media) => {
     if (media.image) {
       return new ImageMedia(media);
     } else if (media.video) {
@@ -9,7 +9,7 @@ class MediaFactory {
     }
   };
 
-  static createMediaElement(mediaData, additionalClass = '') {
+  async createMediaElement(mediaData, additionalClass = '') {
     const media = this.createMedia(mediaData);
 
     const mediaElement = document.createElement('figure');

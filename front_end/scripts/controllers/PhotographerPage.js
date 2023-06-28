@@ -3,9 +3,9 @@ class PhotographerPage {
     this.utils = new Utils();
     this.photographersService = new PhotographersService();
     this.mediaService = new MediaService();
+    this.mediaFactory = new MediaFactory();
     this.photographer = null;
     this.medias = null;
-    this.mediaWrapper = null;
     this.mediaElement = null;
     this.photographerWork = document.querySelector('.photographerWork');
     this.photographersBanner = document.querySelector('.photographersBanner');
@@ -94,19 +94,17 @@ class PhotographerPage {
   // Display all medias from the photographer with the MediaFactory method after sorting them
   displayPhotographerWork(isOnLoad) {
 
-    // check if is it the first time we load the page. If not, we remove the medias from the DOM for refresh it with the new filter
-    if (isOnLoad === false) {
+    if(!isOnLoad) {
+      // clear the mediaWrapper before displaying the new medias
+      const wrapper = document.querySelector('.photographerWork__mediaWrapper');
+      wrapper.innerHTML = '';
+    }
 
-     const wrapper = [...document.getElementsByClassName('photographerWork__mediaWrapper')]
-      wrapper.map((n) => {
-        n && n.removeChild(n.firstChild);
-      });
-    } else {
+    if(isOnLoad) {
       // Create a tag where to display the medias
-      this.mediaWrapper = document.createElement('div');
-      this.mediaWrapper.classList.add('photographerWork__mediaWrapper');
-      this.mediaWrapper.setAttribute('id', 'test');
-      this.photographerWork.appendChild(this.mediaWrapper);
+      const mediaWrapper = document.createElement('div');
+      mediaWrapper.classList.add('photographerWork__mediaWrapper');
+      this.photographerWork.appendChild(mediaWrapper);
     }
 
     let selectedFilter = this.activeFilter;
@@ -115,7 +113,7 @@ class PhotographerPage {
     sessionStorage.setItem('medias', JSON.stringify(allMedias));
 
     // Filter and sort medias based on the selected filter
-    let filteredMedias = null;
+    let filteredMedias;
 
     switch (selectedFilter) {
 
@@ -144,12 +142,13 @@ class PhotographerPage {
 
 
     // Display filtered medias
-    filteredMedias.forEach((media) => {
-      this.mediaElement = MediaFactory.createMediaElement(media);
+    filteredMedias.forEach( async (media) => {
+      this.mediaElement = await this.mediaFactory.createMediaElement(media);
       this.mediaElement
         .querySelector('.photographerWork__mediaWrapper__container__link')
         .setAttribute('data-index', media.id);
-      this.mediaWrapper.appendChild(this.mediaElement);
+      const mediaWrapper = document.querySelector('.photographerWork__mediaWrapper')
+      mediaWrapper.appendChild(this.mediaElement);
     });
   }
 
@@ -200,7 +199,7 @@ class PhotographerPage {
 
     // Add event listener to each filter element
     filterElements.forEach((filterElement) => {
-      filterElement.addEventListener('click', () => {
+      filterElement.addEventListener('click',  () => {
         this.activeFilter = filterElement.getAttribute('data-filter');
         toggleFilterList();
         this.displayPhotographerWork(false);
@@ -212,11 +211,11 @@ class PhotographerPage {
     return new Promise(async (resolve, reject) => {
       try {
         await this.getPhotographerData();
-        this.displayPhotographerBanner();
-        this.displayFilterButton();
-        this.displayPhotographerWork(true);
-        this.displayPhotographerDailyPrice();
-        this.addEventListenersPhotographerPage();
+        await this.displayPhotographerBanner();
+        await this.displayFilterButton();
+        await this.displayPhotographerWork(true);
+        await this.displayPhotographerDailyPrice();
+        await this.addEventListenersPhotographerPage();
         resolve();
       } catch (error) {
         console.error('An error occurred while initializing the app: ', error);

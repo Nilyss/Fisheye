@@ -2,6 +2,7 @@ class MediaService extends ApiCalls {
   constructor() {
     super();
     this.media = null;
+    this.mediaFactory = new MediaFactory();
   }
 
   // ********** GET REQUEST **********
@@ -12,8 +13,8 @@ class MediaService extends ApiCalls {
     const getImage = req.media.filter((media) => media.image && media.photographerId === photographerId);
     const getVideo = req.media.filter((media) => media.video && media.photographerId === photographerId);
 
-    const images = getImage.map((image) => MediaFactory.createMedia(image));
-    const videos = getVideo.map((video) => MediaFactory.createMedia(video));
+    const images = getImage.map((image) => this.mediaFactory.createMedia(image));
+    const videos = getVideo.map((video) => this.mediaFactory.createMedia(video));
 
     this.media = { images, videos };
     return this.media;
