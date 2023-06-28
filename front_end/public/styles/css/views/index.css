@@ -15,7 +15,7 @@ body {
 }
 
 a:focus, button:focus {
-  outline: 6px solid #000000;
+  outline: 4px solid #000000;
 }
 
 header {

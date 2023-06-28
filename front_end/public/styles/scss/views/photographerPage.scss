@@ -205,9 +205,21 @@
   justify-content: flex-start;
   gap: 0.5em;
   width: 174px;
-  &:focus {
-    outline: 6px solid $textFontColors;
-  }
+}
+
+.btnIconDown {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: .5em;
+}
+
+.btnIconUp {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: .8em;
+  z-index: 999;
 }
 
 .photographerWork__filtersWrapper__ButtonWrapper__elementWrapper {
@@ -243,9 +255,29 @@
   justify-content: flex-start;
   gap: 1em;
   position: relative;
+  width: 100%;
+
+  &:focus {
+    border: 4px solid $textFontColors;
+  }
+}
+
+.subNav {
+  position: absolute;
+  top: -.25em;
+  left: 0;
+  width: 100%;
+  background: $titleFontColors;
+  border-radius: 4px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  gap: 1em;
+  z-index: 998;
 }
 
 .middleFilter {
+  width: 100%;
   &:before {
     content: '';
     position: absolute;
