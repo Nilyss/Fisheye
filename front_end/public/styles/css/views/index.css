@@ -14,7 +14,7 @@ body {
   max-width: 1440px;
 }
 
-a:focus, button:focus {
+a:focus, button:focus, figure:focus {
   outline: 4px solid #000000;
 }
 

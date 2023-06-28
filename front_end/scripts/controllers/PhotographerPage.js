@@ -134,7 +134,7 @@ class PhotographerPage {
           </ul>     
         </div>
       `;
-    this.addEventListenersPhotographerPage();
+    this.reloadInstances();
   }
 
   // Display all medias from the photographer with the MediaFactory method after sorting them
@@ -228,7 +228,7 @@ class PhotographerPage {
     );
 
     const toggleFilterList = () => {
-      console.log('toggleFilterList')
+      console.log('toggleFilterList');
       const filterList = document.querySelector(
         '.photographerWork__filtersWrapper__ButtonWrapper__elementWrapper'
       );
@@ -255,7 +255,6 @@ class PhotographerPage {
 
     // Add event listener to each filter element
     filterElements.forEach((filterElement) => {
-
       filterElement.addEventListener('click', () => {
         this.activeFilter = filterElement.getAttribute('data-filter');
         toggleFilterList();
@@ -289,6 +288,12 @@ class PhotographerPage {
       }
     });
   }
+
+  async reloadInstances() {
+    await this.addEventListenersPhotographerPage();
+    await contactModal.initApp();
+    await lightbox.initApp();
+  }
 }
 
 // Initialise controllers
@@ -298,9 +303,9 @@ const lightbox = new Lightbox();
 
 photographerPage
   .initApp()
-  .then(() => {
-    contactModal.initApp();
-    lightbox.initApp();
+  .then(async () => {
+    await contactModal.initApp();
+    await lightbox.initApp();
   })
   .catch((error) => {
     console.error(
