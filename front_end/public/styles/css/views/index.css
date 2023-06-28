@@ -14,8 +14,8 @@ body {
   max-width: 1440px;
 }
 
-a:focus, button:focus {
-  outline: 6px solid #000000;
+a:focus, button:focus, figure:focus {
+  outline: 4px solid #000000;
 }
 
 header {

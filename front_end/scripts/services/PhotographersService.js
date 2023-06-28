@@ -3,6 +3,7 @@ class PhotographersService extends ApiCalls {
     super();
     this.photographers = null;
     this.utils = new Utils();
+    this.photographerFactory = new PhotographerFactory();
   }
 
   // ********** GET REQUEST **********
@@ -11,7 +12,7 @@ class PhotographersService extends ApiCalls {
 
     const req = await this.fetch('/photographers.json');
     this.photographers = req.photographers.map((photographer) =>
-      PhotographerFactory.createPhotographer(photographer)
+      this.photographerFactory.createPhotographer(photographer)
     );
 
     return this.photographers;

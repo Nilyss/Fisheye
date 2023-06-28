@@ -2,7 +2,7 @@ class Index {
   constructor() {
     this.photographersService = new PhotographersService();
     this.isPhotographerDisplayed = false;
-    this.photographerFactory = PhotographerFactory;
+    this.photographerFactory = new PhotographerFactory;
   }
 
   async initApp() {
@@ -29,7 +29,7 @@ class Index {
             groupIndex + 1
           }`;
 
-          group.forEach((photographer, photographerIndex) => {
+          group.forEach(async (photographer, photographerIndex) => {
             // Adding specific class for some photographers
             let additionalClass = '';
             switch (groupIndex) {
@@ -53,7 +53,7 @@ class Index {
                 photographer,
                 additionalClass
               );
-            groupContainer.appendChild(photographerElement);
+            groupContainer.appendChild(await photographerElement);
           });
 
           photographersContainer.appendChild(groupContainer);

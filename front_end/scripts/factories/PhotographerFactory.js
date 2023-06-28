@@ -1,10 +1,11 @@
 class PhotographerFactory {
   constructor() {}
 
-  static createPhotographer = (photographerData) => {
+   createPhotographer = (photographerData) => {
     return new Photographer(photographerData);
   };
-  static createPhotographerElement(photographerData, additionalClass = '') {
+
+   async createPhotographerElement(photographerData, additionalClass = '') {
     const photographer = this.createPhotographer(photographerData);
 
     // Create elements
