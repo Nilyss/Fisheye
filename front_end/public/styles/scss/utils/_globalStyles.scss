@@ -20,7 +20,7 @@ body {
 
 a, button {
   &:focus {
-    outline: 6px solid variables.$textFontColors;
+    outline: 4px solid variables.$textFontColors;
   }
 }
 

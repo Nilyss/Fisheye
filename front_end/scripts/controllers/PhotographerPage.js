@@ -63,44 +63,89 @@ class PhotographerPage {
   }
 
   // Display the filter button menu list
-  displayFilterButton() {
-    let buttonName = 'Popularité';
-    this.photographerWork.innerHTML += `
-      <div class='photographerWork__filtersWrapper'>
+  displayFilterButton(isOnLoad) {
+    if (!isOnLoad) {
+      const filterWrapper = document.querySelector(
+        '.photographerWork__filtersWrapper'
+      );
+      filterWrapper.innerHTML = '';
+    }
+
+    if (isOnLoad) {
+      const filterWrapper = document.createElement('div');
+      filterWrapper.classList.add('photographerWork__filtersWrapper');
+      this.photographerWork.appendChild(filterWrapper);
+    }
+
+    const filterWrapper = document.querySelector(
+      '.photographerWork__filtersWrapper'
+    );
+
+    let buttonName;
+    switch (this.activeFilter) {
+      case 'Popularité':
+        buttonName = 'Popularité';
+        break;
+      case 'Date':
+        buttonName = 'Date';
+        break;
+      case 'Titre':
+        buttonName = 'Titre';
+        break;
+      default:
+        buttonName = 'Popularité';
+        break;
+    }
+
+    filterWrapper.innerHTML += `
         <p class='photographerWork__filtersWrapper__message'>Trier par</p>
         <div class='photographerWork__filtersWrapper__ButtonWrapper'>        
           <button 
-          class='photographerWork__filtersWrapper__ButtonWrapper__button'
-          role='button'
-          aria-haspopup='listbox' 
-          aria-expanded='true'>
+            class='photographerWork__filtersWrapper__ButtonWrapper__button'
+            role='button'
+            aria-haspopup='listbox' 
+            aria-expanded='true'
+          >
           ${buttonName}
-            <img src='${this.arrowDown}' alt='fleche bas' />
+            <img class='btnIconDown' src='${this.arrowDown}' alt='fleche bas' />
           </button>
           <ul class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper'>
-            <li class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters'>${this.activeFilter}               
-              <img src='${this.arrowUp}' alt='fleche haut' />
-            </li>
-            <li class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters' data-filter='Popularité'>Popularité</li>   
-            <li class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters middleFilter' data-filter='Date'>Date</li>
-            <li class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters' data-filter='Titre'>Titre</li>   
+            <div class='subNav'>
+              <li tabindex='0' 
+                  class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters' 
+                  data-filter='Popularité'
+                >
+                  Popularité
+                  <img class='btnIconUp' src='${this.arrowUp}' alt='fleche haut' />
+              </li>   
+              <li tabindex='0' 
+                  class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters middleFilter' 
+                  data-filter='Date'
+                >
+                  Date
+              </li>
+              <li tabindex='0' 
+                  class='photographerWork__filtersWrapper__ButtonWrapper__elementWrapper__filters' 
+                  data-filter='Titre'
+                >
+                  Titre
+              </li>   
+            </div>
           </ul>     
         </div>
-      </div>
-    `;
+      `;
+    this.addEventListenersPhotographerPage();
   }
-
 
   // Display all medias from the photographer with the MediaFactory method after sorting them
   displayPhotographerWork(isOnLoad) {
-
-    if(!isOnLoad) {
+    if (!isOnLoad) {
       // clear the mediaWrapper before displaying the new medias
       const wrapper = document.querySelector('.photographerWork__mediaWrapper');
       wrapper.innerHTML = '';
     }
 
-    if(isOnLoad) {
+    if (isOnLoad) {
       // Create a tag where to display the medias
       const mediaWrapper = document.createElement('div');
       mediaWrapper.classList.add('photographerWork__mediaWrapper');
@@ -116,7 +161,6 @@ class PhotographerPage {
     let filteredMedias;
 
     switch (selectedFilter) {
-
       case 'Popularité':
         filteredMedias = allMedias.sort((a, b) => b.likes - a.likes);
         this.activeFilter = 'Popularité';
@@ -130,7 +174,9 @@ class PhotographerPage {
         break;
 
       case 'Titre':
-        filteredMedias = allMedias.sort((a, b) => a.title.localeCompare(b.title));
+        filteredMedias = allMedias.sort((a, b) =>
+          a.title.localeCompare(b.title)
+        );
         this.activeFilter = 'Titre';
         break;
 
@@ -140,14 +186,15 @@ class PhotographerPage {
       }
     }
 
-
     // Display filtered medias
-    filteredMedias.forEach( async (media) => {
+    filteredMedias.forEach(async (media) => {
       this.mediaElement = await this.mediaFactory.createMediaElement(media);
       this.mediaElement
         .querySelector('.photographerWork__mediaWrapper__container__link')
         .setAttribute('data-index', media.id);
-      const mediaWrapper = document.querySelector('.photographerWork__mediaWrapper')
+      const mediaWrapper = document.querySelector(
+        '.photographerWork__mediaWrapper'
+      );
       mediaWrapper.appendChild(this.mediaElement);
     });
   }
@@ -181,6 +228,7 @@ class PhotographerPage {
     );
 
     const toggleFilterList = () => {
+      console.log('toggleFilterList')
       const filterList = document.querySelector(
         '.photographerWork__filtersWrapper__ButtonWrapper__elementWrapper'
       );
@@ -195,14 +243,32 @@ class PhotographerPage {
       }
     };
 
+    const handleKeyPress = (event) => {
+      // if user press enter key
+      if (event.key === 'enter') {
+        toggleFilterList();
+      }
+    };
+
     filterButton.addEventListener('click', toggleFilterList);
+    filterButton.addEventListener('keydown', handleKeyPress);
 
     // Add event listener to each filter element
     filterElements.forEach((filterElement) => {
-      filterElement.addEventListener('click',  () => {
+
+      filterElement.addEventListener('click', () => {
         this.activeFilter = filterElement.getAttribute('data-filter');
         toggleFilterList();
         this.displayPhotographerWork(false);
+        this.displayFilterButton(false);
+      });
+      filterElement.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          this.activeFilter = filterElement.getAttribute('data-filter');
+          toggleFilterList();
+          this.displayPhotographerWork(false);
+          this.displayFilterButton(false);
+        }
       });
     });
   }
@@ -212,7 +278,7 @@ class PhotographerPage {
       try {
         await this.getPhotographerData();
         await this.displayPhotographerBanner();
-        await this.displayFilterButton();
+        await this.displayFilterButton(true);
         await this.displayPhotographerWork(true);
         await this.displayPhotographerDailyPrice();
         await this.addEventListenersPhotographerPage();
