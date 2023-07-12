@@ -237,7 +237,10 @@ header {
 }
 
 .photographerWork__mediaWrapper__container__description__likeWrapper__icon {
+  background: none;
+  border: none;
   color: #901C1C;
+  cursor: pointer;
 }
 
 .material-symbols-outlined {
@@ -396,6 +399,7 @@ header {
   border-radius: 4px 4px 0 0;
   font-size: 24px;
   font-weight: 500;
+  cursor: default;
 }
 
 .photographer__TJM__likesWrapper {
