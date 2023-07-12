@@ -228,7 +228,6 @@ class PhotographerPage {
     );
 
     const toggleFilterList = () => {
-      console.log('toggleFilterList');
       const filterList = document.querySelector(
         '.photographerWork__filtersWrapper__ButtonWrapper__elementWrapper'
       );

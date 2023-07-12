@@ -21,6 +21,7 @@ class PhotographerFactory {
 
     const img = document.createElement('img');
     img.classList.add('photographer__link__imgWrapper__img');
+    img.alt = `Photo de ${photographer.name}`;
     if (additionalClass !== '') {
       img.classList.add(additionalClass);
     }
