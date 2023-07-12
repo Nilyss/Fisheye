@@ -12,6 +12,7 @@ class PhotographerPage {
     this.arrowUp = '../public/assets/icons/arrowUp.svg';
     this.arrowDown = '../public/assets/icons/arrowDown.svg';
     this.activeFilter = 'Popularité';
+    this.currentLikes = null;
   }
 
   // Get photographer data from the API with the id from the url
@@ -201,7 +202,7 @@ class PhotographerPage {
 
   displayPhotographerDailyPrice() {
     // Get total likes (images likes + videos likes)
-    const totalLikes = this.utils.getTotalLike(
+    this.currentLikes = this.utils.getTotalLike(
       this.medias.images,
       this.medias.videos
     );
@@ -210,7 +211,7 @@ class PhotographerPage {
     photographerDailyPrice.innerHTML += `
       <section class='photographer__TJM'>
         <div class='photographer__TJM__likesWrapper'>
-          <p class='photographer__TJM__likesWrapper__likes'>${totalLikes}</p>
+          <p class='photographer__TJM__likesWrapper__likes'>${this.currentLikes}</p>
           <p class='material-symbols-outlined TJMIcon'>favorite</></p>
         </div>
         <p class='photographer__TJM__price'>${this.photographer.price}€ / jour</p>
@@ -266,6 +267,40 @@ class PhotographerPage {
           toggleFilterList();
           this.displayPhotographerWork(false);
           this.displayFilterButton(false);
+        }
+      });
+    });
+
+    // increment or decrement likes
+    const likeButtons = document.querySelectorAll(
+      '.photographerWork__mediaWrapper__container__description__likeWrapper__icon'
+    );
+    likeButtons.forEach((button, index) => {
+      let clicked = false;
+      const updateLikes = () => {
+        const like = button.previousElementSibling;
+        const likeNumber = parseInt(like.innerHTML);
+        let newLikeNumber;
+        if (!clicked) {
+          newLikeNumber = likeNumber + 1;
+          this.currentLikes += 1;
+          clicked = true;
+        } else {
+          newLikeNumber = likeNumber - 1;
+          this.currentLikes -= 1;
+          clicked = false;
+        }
+        like.innerHTML = newLikeNumber.toString();
+
+        let totalLikes = document.querySelector(
+          '.photographer__TJM__likesWrapper__likes'
+        );
+        totalLikes.innerHTML = this.currentLikes.toString();
+      };
+      button.addEventListener('click', updateLikes);
+      button.addEventListener('keydown', (event) => {
+        if (event.key === 'enter') {
+          updateLikes();
         }
       });
     });

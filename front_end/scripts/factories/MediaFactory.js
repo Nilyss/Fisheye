@@ -67,7 +67,7 @@ class MediaFactory {
     );
     likes.textContent = media.likes;
 
-    const icon = document.createElement('p');
+    const icon = document.createElement('button');
     icon.classList.add(
       'photographerWork__mediaWrapper__container__description__likeWrapper__icon'
     );
