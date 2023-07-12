@@ -12,6 +12,7 @@ class Lightbox {
     this.goNextButton = null;
     this.goPreviousButton = null;
     this.currentIndex = 0;
+    this.utils = new Utils();
   }
 
   displayLightbox(mediaId) {
@@ -121,6 +122,8 @@ class Lightbox {
       this.currentIndex = (this.currentIndex + 1) % this.medias.length;
       this.updateMedia();
     });
+
+    this.utils.trapFocus(this.lightbox);
   }
 
   updateMedia() {

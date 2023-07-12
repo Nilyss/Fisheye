@@ -19,6 +19,7 @@ class ContactModal {
       email: 'Veuillez entrer une adresse email valide.',
       message: 'Message invalide : 2 à 300 characters maximum.',
     };
+    this.utils = new Utils();
   }
 
   // Display the contact modal
@@ -221,6 +222,9 @@ class ContactModal {
     // Display the contact modal when the user click on the contact button
     this.contactButton.addEventListener('click', () => {
       this.displayContactModal();
+      const contactModal = document.querySelector('.contactModal');
+      console.log(contactModal)
+      this.utils.trapFocus(contactModal);
     });
   }
 
